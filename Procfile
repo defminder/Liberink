@@ -1,1 +1,1 @@
-bot: python manage.py runserver
+web: gunicorn denmin.wsgi
