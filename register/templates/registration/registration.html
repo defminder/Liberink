@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% load static %}
+    <link rel="shortcut icon" type="img/png" href="{% static 'images/favicons/main_icon.ico' %}" />
+    <title>Libering</title>
+    <link href="https://getbootstrap.com/docs/4.5/examples/floating-labels/floating-labels.css" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/login&register.css' %}" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <header class="card-header">
+                        <a href="/login" class="float-right btn btn-outline-primary mt-1">Log in</a>
+                        <h4 class="card-title mt-2">Sign up</h4>
+                    </header>
+                    <article class="card-body">
+                        <form   method="POST" 
+                                class="form-signin needs-validation" 
+                                novalidate>
+
+                            {% csrf_token %}
+                            
+                            <div class="text-center mb-4">
+                                <a href='/'><img class="mb-4" src="/static/images/favicons/main_icon.ico" alt="" width="72" height="72"></a>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 pd-l mb-3 form-label-group" >
+                                    <input  type="text" 
+                                            class="form-control" 
+                                            id="firstName" 
+                                            name="first_name"
+                                            placeholder="First name"
+                                            required>
+                                    <label for="lastName">First name</label>
+                                    <div class="invalid-feedback">
+                                        First name is required
+                                    </div>
+                                </div>
+                                <div class="col-md-6 pd-r mb-3 form-label-group">
+                                    <input  type="text" 
+                                            class="form-control" 
+                                            id="lastName"
+                                            name="last_name" 
+                                            placeholder="Last name" 
+                                            required>
+                                    <label class='form-label-group2'for="lastName">Last name</label>
+                                    <div class="invalid-feedback">
+                                        Last name is required
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-label-group">
+                                <input  type="username" 
+                                        id="inputUsername" 
+                                        name="username" 
+                                        class="form-control" 
+                                        placeholder="Username" 
+                                        required>
+                                <label for="inputUsername">Username</label>
+                                <div class="invalid-feedback">
+                                    Username is required
+                                </div>
+                            </div>
+                            <div class="form-label-group">
+                                <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" required>
+                                <label for="inputEmail">Email address</label>
+                                <div class="invalid-feedback">
+                                    Email address is required
+                                </div>
+                            </div>
+                            
+                            <div class="form-label-group mb-4">
+                                <input type="password" id="inputPassword" name="password1" class="form-control" placeholder="Password" required>
+                                <label for="inputPassword">Password</label>
+                                <div class="invalid-feedback">
+                                    Password is required
+                                </div>
+                            </div>
+
+                            {% if form.errors %}
+                                {% for field in form %}
+                                    {% for error in field.errors %}
+                                        <div class="alert alert-danger">
+                                            <strong>{{ error }}</strong>
+                                        </div>
+                                    {% endfor %}
+                                    {% endfor %}
+                                {% for error in form.non_field_errors %}
+                                    <div class="alert alert-danger">
+                                        <strong>{{ error }}</strong>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-block"> Register </button>
+                            </div>
+                        </form>
+                    </article>
+                    <div class="border-top card-body text-center">Have an account? <a href="/login">Log In</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="area">
+        
+        <ul class="circles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <script>
+      (function () {
+          'use strict'
+
+          window.addEventListener('load', function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.filter.call(forms, function (form) {
+              form.addEventListener('submit', function (event) {
+                if (form.checkValidity() === false) {
+                  event.preventDefault()
+                  event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+              }, false)
+            })
+          }, false)
+        })()
+
+    </script> 
+</body>

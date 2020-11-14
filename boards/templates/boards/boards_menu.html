@@ -1,0 +1,83 @@
+{% include "main/base_header.html" %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% load static %}
+    <link rel="shortcut icon" type="img/png" href="{% static 'images/favicons/main_icon.ico' %}" />
+    <title>Liberink</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="{% static 'CSS/base_header.css' %}" />
+    <link rel="stylesheet" href="{% static 'CSS/base_content.css' %}" />
+    <script type="text/javascript" src ="{% static 'JS/dropdown.js' %}" ></script>
+</head>
+
+<body>
+    <div class='container'>
+        <div class='container_header'>
+            <img class='container_header_icon' src="{% static 'images/icons/boards.png '%}" />
+            <div class='container_header_text'>Your desks</div>
+        </div>
+        <div class='container_row'>
+            {% for board in boards_list %}
+            <a href='/board/{{board.id}}' style= 'color: transparent;'>
+                <div class='container_board'>
+                    {% if board.description != "" %}
+                    <div class='container_board_title'>
+                        {{ board.title }}
+                    </div>
+                    <div class='container_board_description'>
+                        {{ board.description|linebreaksbr|truncatewords:10}}
+                    </div>
+                    {% elif board.description == "" %}
+                    {% if board.title|wordcount == 1 %}
+                    <div class='container_board_only_title' style="word-break: break-all;">
+                        {{ board.title|linebreaksbr }}
+                    </div>
+                    {% else %}
+                    <div class='container_board_only_title'>
+                        {{ board.title|linebreaksbr }}
+                    </div>
+                    {% endif %}
+                    {% endif %}
+                </div>
+            </a>
+            {% endfor %}
+            <button id='board_add' class=' btn board_btn'>
+                <div class='container_board_plus'>
+                    <div>
+                        <img class='plus_board_icon' src="{% static 'images/icons/add.png' %}" />
+                    </div>
+            </button>
+            <div id="board_add_modal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title"><img class='modal_icon  ' src="{% static 'images/icons/board.png' %}" /> Create board</h3>
+                        <img src="{% static 'images/icons/close.png' %}" class="close"></img>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" class="form_create_board needs-validation" autocomplete='off' novalidate>
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="title_input">Title</label>
+                                <input name='title' type="text" class="form-control" id="title_input" required maxlength="50">
+                                <div class="invalid-feedback">
+                                    Title is required
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="description_textarea">Description</label>
+                                <textarea name='description' class="form-control" id="description_textarea" spellcheck="false" rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" style='margin:0px;' class="btn btn-outline-primary btn-block"> Submit </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src ="{% static 'JS/open_modal_form.js' %}" ></script>
+    <script type="text/javascript" src ="{% static 'JS/form_validation.js' %}" ></script>
+</body>

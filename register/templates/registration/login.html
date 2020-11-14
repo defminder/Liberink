@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% load static %}
+    <link rel="shortcut icon" type="img/png" href="{% static 'images/favicons/main_icon.ico' %}" />
+    <title>Libering</title>
+    <link href="https://getbootstrap.com/docs/4.5/examples/floating-labels/floating-labels.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/4.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'CSS/login&register.css' %}" />
+</head>
+
+<body>
+    <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <header class="card-header">
+                            <a href="/registration" class="float-right btn btn-outline-primary mt-1">Sing up</a>
+                            <h4 class="card-title mt-2">Log in</h4>
+                        </header>
+                        <article class="card-body">
+                            <form method="POST" class="form-signin needs-validation" novalidate>
+                                {% csrf_token %}
+                                <div class="text-center mb-4">
+                                    <a href='/'><img class="mb-4" src="/static/images/favicons/main_icon.ico" alt="" width="72" height="72"></a>
+                                </div>
+                                <div class="form-label-group">
+                                    <input type="text" id="inputEmailorUsername" class="form-control" name='email_or_username' placeholder="EmailorUsername" required autofocus="" autofill-prediction="EMAIL_OR_USERNAME">
+                                    <label for="inputEmailorUsername">Email / Username</label>
+                                    <div class="invalid-feedback">
+                                        Email / Username is required
+                                    </div>
+                                </div>
+                                <div class="form-label-group">
+                                    <input type="password" id="inputPassword" class="form-control" name='password' placeholder="Password" required autofill-prediction="PASSWORD">
+                                    <label for="inputPassword">Password</label>
+                                    <div class="invalid-feedback">
+                                        Password is required
+                                    </div>
+                                </div>
+                                {% if form.errors %}
+                                {% for error in form.non_field_errors %}
+                                <div class="alert alert-danger">
+                                    <strong>{{ error|escape }}</strong>
+                                </div>
+                                {% endfor %}
+                                {% endif %}
+                                {% for message in messages %}
+                                <div class="alert alert-danger">
+                                    <strong>{{ message }}</strong>
+                                </div>
+                                {% endfor %}
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block"> Log in </button>
+                                </div>
+                            </form>
+                        </article>
+                        <div class="border-top card-body text-center">
+                            <span class="txt1">Forgot</span>
+                            <a href="#" class="txt2 hov1">Password?</a>
+                        </div>
+                        <div class="border-top card-body text-center">
+                            <span class="txt1">Create an account?</span>
+                            <a href="/registration" class="txt2 hov1">Sign up</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="area">
+        
+        <ul class="circles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <script>
+    (function() {
+        'use strict'
+
+        window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        }, false)
+    })()
+    </script>
+</body>
+
+</html>

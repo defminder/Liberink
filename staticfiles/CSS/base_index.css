@@ -1,0 +1,80 @@
+.logo {
+	height: 35%;
+  	width: 45px;
+  	margin-left: 1vw;
+  	margin-right: 1vw;
+}
+
+.page-header{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: relative;
+    
+    background-color: #fefefe;
+    z-index: 1100;
+    justify-content: space-between;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0 30px;
+    height: 60px;
+}
+
+.header-column{
+	align-items: center;
+	display: flex;
+    height: 30px;
+    width: 50%;
+}
+.header-column:first-child{
+	text-align: left;
+}
+.header-column:last-child{
+	justify-content: flex-end;
+    text-align: right;
+}
+.auth-buttons{
+	display: inline-block;
+}
+
+
+.btn{
+	display: inline-block;
+	margin: 0px 0px 0px 10px;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    border-radius: 10px;
+    -webkit-transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+
+}
+
+.link
+{
+   color:black;
+   text-decoration: none; 
+   background-color: none;
+}
+.link:hover {
+  color: black;
+  text-decoration: none;
+}
+
+.company-name{
+	font-size:155%;
+}
+.float-right {
+	float: right !important;
+}
+

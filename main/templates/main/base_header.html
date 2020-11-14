@@ -1,0 +1,62 @@
+{% load static %}
+<header class='page-header'>
+    <div class='header_content'>
+        <div class='header-column'>
+            <div class='logo_rectangle'>
+                <a href='/'>
+                    <img src="{% static 'images/icons/main_icon.png' %}" class='logo' />
+                </a>
+            </div>
+            <a href='/' class='a-header link'>
+                <div class="company-name">Liberink</div>
+            </a>
+        </div>
+        {% if 'board' in request.path %}
+        <div class='header-column'>
+            <div class="dropdown edit_menu" style="margin: 0px 10px;">
+                <div class="dropdown-content" style='border-radius: 3px; opacity: 1; padding: 12px 12px;' onclick='toggle_delete_lists_buttons(event)'>
+                    <img src="{% static 'images/icons/delete-column.png' %}" style="width: 30px;
+height: 30px; cursor: pointer;"/>
+                </div>
+                <div class="dropdown-content" style='border-radius: 30px; opacity: 1; padding: 12px 12px;' onclick= 'edit_columns(event)'>
+                    <img src="{% static 'images/icons/check-mark.png' %}" style="width: 30px;
+height: 30px; cursor: pointer;"/>
+                </div>
+                <div class="dropdown-content" style='border-radius: 3px; opacity: 1; padding: 12px 12px;' onclick='add_list_to_container(event)'>
+                    <img src="{% static 'images/icons/add-column.png' %}" style="width: 30px;
+height: 30px; cursor: pointer;" />
+                </div>
+                <!--<a href="/profile" style="
+                        min-width: 100px;
+                        text-align: center;">Profile</a>-->
+                <img src="{% static 'images/icons/setting.png' %}" class='column_settings' onclick='edit_columns(event)' />
+            </div>
+        </div>
+        {% endif %}
+        {% if user.is_authenticated %}
+        <div class='header-column'>
+            <div class="dropdown">
+                <div id="profile" class="dropdown-content">
+                    <a href="/logout"><img src="{% static 'images/icons/logout2.png' %}" style="
+                        width:    25px; 
+                        height:   25px;">
+                    </a>
+                    <!--<a href="/profile" style="
+                        min-width: 100px;
+                        text-align: center;">Profile</a>-->
+                </div>
+                <button class="btn logo_btn">
+                    <img src="{% static 'images/icons/account.png' %}" onclick="dropdown(event); hide_dropdown(event)" class='logo' />
+                </button>
+            </div>
+        </div>
+        {% else %}
+        <div class='header-column'>
+            <nav class='auth-buttons'>
+                <a href="/login" class="btn btn-outline">Log In</a></li>
+                <a href="/registration" class="btn btn-outline-primary pulse float-right">Sign up</a>
+            </nav>
+        </div>
+        {% endif %}
+    </div>
+</header>

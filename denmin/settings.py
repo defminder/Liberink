@@ -15,10 +15,8 @@ import os
 import django_heroku
 
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -35,12 +33,17 @@ ALLOWED_HOSTS = ['denmin.site']
 # Application definition
 
 INSTALLED_APPS = [
+    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'main',
+    'register',
+    'boards',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -58,7 +61,7 @@ ROOT_URLCONF = 'denmin.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['main/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,11 +81,25 @@ WSGI_APPLICATION = 'denmin.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
+
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+
+        'ENGINE': 'django.db.backends.postgresql',
+
+        'NAME': 'da4odi4qdg1jec',
+
+        'USER': 'gvuxgkdvkzqjbn',
+
+        'PASSWORD': '0ecbedc1c64156df3e50c28eebe8b7cac91f92289d62a88ef94e9f22046cbd41',
+
+        'HOST': 'ec2-52-22-216-69.compute-1.amazonaws.com',
+
+        'PORT': '5432',
+
     }
+
 }
+
 
 
 # Password validation
@@ -104,6 +121,18 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+#Authentication backends
+AUTHENTICATION_BACKENDS = ['register.auth.EmailBackend']
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ],
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+    ]
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -123,6 +152,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
 # Activate Django-Heroku.
 django_heroku.settings(locals())
