@@ -6,6 +6,7 @@
     {% load static %}
     <link rel="shortcut icon" type="img/png" href="{% static 'images/favicons/main_icon.ico' %}" />
     <title>Liberink</title>
+    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
     <link rel="stylesheet" href="{% static 'CSS/base_header.css' %}" />
     <link rel="stylesheet" href="{% static 'CSS/base_content.css' %}" />
@@ -31,7 +32,7 @@
                 <div class='list'>
                     <textarea id='list_label' class="list_title" maxlength="30" spellcheck="false" readonly onclick='edit_list_title(event)'>{{ list_title }}</textarea>
                     <div class='sticker_wrapper'>
-                        <textarea class="sticker" spellcheck="false" readonly onmousedown="on_stiker_click(event)"> </textarea>
+                        <textarea class="sticker" spellcheck="false" readonly onmousedown="on_stiker_click(event)" ontouchstart="on_stiker_click(event)"> </textarea>
                         <div id="edit_columns" class="edit_modal" style="top: 0; display: none;">
                             <div id='on_sticker_edit edit_modal' style="display: none">
                                 <textarea class="sticker" spellcheck="false" oninput="OnInput(event)"></textarea>
