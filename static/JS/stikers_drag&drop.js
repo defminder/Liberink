@@ -128,8 +128,8 @@ function on_stiker_click(e) {
             }
         }
         document.ontouchend = function stiker_drop(e) {
-            document.onmousemove = null;
-            document.onmouseup = null;
+            document.ontouchmove = null;
+            document.ontouchend = null;
             stiker.onmouseup = null;
             stiker.style.cursor = 'pointer';
             stiker.style.position = 'relative';

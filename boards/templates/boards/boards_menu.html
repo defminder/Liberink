@@ -1,7 +1,7 @@
 {% include "main/base_header.html" %}
 <!DOCTYPE html>
 <html>
-
+{% block head %}
 <head>
     {% load static %}
     <link rel="shortcut icon" type="img/png" href="{% static 'images/favicons/main_icon.ico' %}" />
@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{% static 'CSS/base_content.css' %}" />
     <script type="text/javascript" src ="{% static 'JS/dropdown.js' %}" ></script>
 </head>
-
+{% endblock %}
 <body>
     <div class='container'>
         <div class='container_header'>
@@ -45,9 +45,7 @@
             {% endfor %}
             <button id='board_add' class=' btn board_btn'>
                 <div class='container_board_plus'>
-                    <div>
-                        <img class='plus_board_icon' src="{% static 'images/icons/add.png' %}" />
-                    </div>
+                    <img class='plus_board_icon' src="{% static 'images/icons/add.png' %}" />
             </button>
             <div id="board_add_modal" class="modal">
                 <div class="modal-content">

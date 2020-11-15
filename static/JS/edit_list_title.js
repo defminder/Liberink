@@ -4,32 +4,47 @@ function edit_list_title(event) {
     for (var i = 0; i < lists.length; i++) {
         var openlist = lists[i];
         if (openlist == event.target) {
+            var edit_list_title = event.target;
             event.target.removeAttribute('readonly');
             var list_index = i;
             var submit_listener = function(e) {
-                if (event.target.value.length == 0) { return; } else if (e.which == 13) {
-                    event.target.removeEventListener('keydown', submit_listener, false);
+                if (edit_list_title.value.length == 0) { return; } else if (e.which == 13) {
+                    edit_list_title.removeEventListener('keydown', submit_listener, false);
                     e.preventDefault();
+                    edit_list_title.classList.remove('show_edit');
+                    edit_list_title.setAttribute('readonly', '');
+                    edit_list_title.style.cursor = 'pointer';
+
                     list_titile_update(event.target, list_index);
-                    event.target.classList.remove('show_edit');
-                    event.target.setAttribute('readonly', '');
-                    event.target.style.cursor = 'pointer';
+                    
                 }
 
             }
 
-            event.target.addEventListener('keydown', submit_listener, false);
+            var hide_edit_listener = function(e){
+                if (e.target != edit_list_title){
+                    edit_list_title.removeEventListener('keydown', submit_listener, false);
+                    document.removeEventListener('click', submit_listener, false);
+                    edit_list_title.classList.remove('show_edit');
+                    edit_list_title.setAttribute('readonly', '');
+                    edit_list_title.style.cursor = 'pointer';
+                    document.onmousedown = null;
+                }
+            }
 
+            event.target.addEventListener('keydown', submit_listener, false);
+            document.addEventListener('click', hide_edit_listener, false)
             if (!openlist.classList.contains('show_edit')) {
                 event.target.select();
                 openlist.classList.add('show_edit');
-
             }
         } else {
             openlist.classList.remove('show_edit');
         }
-
     }
+
+    
+
     async function list_titile_update(element, index) {
         var url = 'api/' + document.URL.split('/')[4];
         await axios({

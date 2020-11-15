@@ -14,7 +14,6 @@ from pathlib import Path
 import os
 import django_heroku
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -22,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '00%kixx(b3m_gq+h-x62@1z0iq*=_$w9a2c2gg&6)ci^w!hm_+'
+SECRET_KEY  = '00%kixx(b3m_gq+h-x62@1z0iq*=_$w9a2c2gg&6)ci^w!hm_+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -43,6 +42,7 @@ INSTALLED_APPS = [
     'main',
     'register',
     'boards',
+    'api',
     'rest_framework'
 ]
 
@@ -120,7 +120,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 #Authentication backends
 AUTHENTICATION_BACKENDS = ['register.auth.EmailBackend']
 
@@ -132,6 +131,8 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.JSONParser',
     ]
 }
+
+AUTH_USER_MODEL = 'register.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/

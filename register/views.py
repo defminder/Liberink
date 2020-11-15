@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth import get_user_model
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import authenticate
 from .forms import RegistredUsers
 from django.contrib import messages
 from .auth import EmailBackend
-
+from uuid import uuid4
 
 # Create youws here.
 def registration(response):
@@ -13,9 +14,11 @@ def registration(response):
 		user_form = RegistredUsers(response.POST)
 		if user_form.is_valid():
 			user = user_form.save(commit=False)
-			user.active=True
-			user.staff=False
-			user.admin=False
+			user.active= True
+			user.staff= False
+			user.admin= False
+			user.api_key = uuid4().hex
+			print(user.api_key)
 			user.save()
 			username = user_form.cleaned_data.get('username')
 			password = user_form.cleaned_data.get('password1')

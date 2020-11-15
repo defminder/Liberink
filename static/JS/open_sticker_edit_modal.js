@@ -9,26 +9,29 @@ function edit_sticker(sticker) {
 
 	sticker.parentNode.style.filter = 'none';
 	edit_modal.style.display = 'block';
+	edit_modal.style.zIndex = 1001;
     edit_block.style.display = 'block';
     edit_block.style.position = 'fixed';
-    edit_block.style.zIndex = 1000;
+    edit_block.style.zIndex = 1001;
     edit_block.style.top = sticker.getBoundingClientRect().top;
     edit_block.style.left = sticker.getBoundingClientRect().left;
     edit_area.style.zIndex = 1001;
     edit_area.style.cursor = 'text';
     edit_area.select();
     save_button.onmousedown = function(event){
-    	sticker.parentNode.style.filter = 'drop-shadow(1px 1px 2px #000);';
+    	sticker.parentNode.style.filter = 'drop-shadow(1px 1px 2px #000)';
     	sticker.children[0].value = edit_area.value;
     	edit_modal.style.display = "none";
+    	edit_block.style.zIndex = 1;
 		console.log(edit_area.value);
 		save_button.onmousedown = null;
 		document.onmousedown = null;
 	};
 	document.onmousedown = function(event){
 		if (event.target != edit_area && event.target != save_button){
-			sticker.parentNode.style.filter = 'drop-shadow(1px 1px 2px #000);';
+			sticker.parentNode.style.filter = 'drop-shadow(1px 1px 2px #000)';
 			sticker.children[0].value = edit_area.value;
+			edit_block.style.zIndex = 1;
 			edit_modal.style.display = "none";
 			console.log(edit_area.value);
 			save_button.onmousedown = null;
