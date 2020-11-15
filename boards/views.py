@@ -46,7 +46,7 @@ def profile_view(request, username):
 					})
 				return redirect(f'/board/{current_board.id}')
 			else:
-				boards_list = Board.objects.all()
+				boards_list = Board.objects.filter(owner_id= request.user.api_key)
 				return render(request, 'boards/boards_menu.html', {'boards_list' : boards_list})
 		else:
 			return render(request, 'boards/not_found.html', {})
