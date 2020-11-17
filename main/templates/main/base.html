@@ -1,24 +1,31 @@
-{% include "./base_header.html" %}
+{% extends "./base_header.html" %}
 <!DOCTYPE html>
 <html>
 
-<head>
-    {% load static %}
-    <link rel="shortcut icon" type="img/png" href="{% static 'images/favicons/main_icon.ico' %}" />
-    <title>Liberink</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="{% static 'CSS/base_header.css' %}" />
-    <link rel="stylesheet" href="{% static 'CSS/base_content.css' %}" />
-</head>
 
 <body>
+    {% block head %}
+    <head>
+        {% load static %}
+        {% load compress %}
+        <link rel="shortcut icon" type="img/png" href="{% static 'images/favicons/main_icon.ico' %}" />
+        <title>Liberink</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+        {% compress css %}
+        <link rel="stylesheet" href="{% static 'CSS/base_header.css' %}" />
+        <link rel="stylesheet" href="{% static 'CSS/base_content.css' %}" />
+        {% endcompress %}
+    </head>
+    {% endblock %}
+    {% block content %}
     <div class="area">
         <div class="column-h">
             Plan and control you work
             <p>Allow you mind for liberty thinking</p>
         </div>
-        <img class="column-img-first" src="{% static 'images/home/2350.png '%}" />
+        <img class="column-img-first" src="{% static 'images/home/23501.png '%}" />
     </div>
+    {% endblock %}
 </body>
 
 </html>

@@ -21,6 +21,7 @@ function edit_columns(event){
 		lists = document.getElementsByClassName('list');
 		for (let i = 0; i < lists.length; i++) {
 			lists[i].style.zIndex = null;
+			lists[i].getElementsByClassName('del_list')[0].style.display = 'none';
 		}
 	}
 }
@@ -42,7 +43,6 @@ function add_list_to_container(event) {
     var container = document.getElementsByClassName('lists_container')[0];
     var show_close_button = false;
     if (container.children.length > 0) {
-    	console.log(container.children);
     	var exist_container_list = container.children[0].children[0].children;
 	    if (container.children.length > 0 && exist_container_list[exist_container_list.length - 1].style.display == 'block'){
 	    	show_close_button = true;
@@ -55,12 +55,13 @@ function add_list_to_container(event) {
     	show_close_button = false;
     }
     
-    var new_list = create_new_list();
+    var new_list = create_new_list_element();
     container.append(new_list);
+
     new_list.getElementsByClassName('list_title')[0].click();
-
-
-    function create_new_list() {
+    create_list();
+ 
+    function create_new_list_element() {
 		var wrapper = document.createElement('div');
 		wrapper.classList.add('wrapper');
 
@@ -108,8 +109,24 @@ function add_list_to_container(event) {
 
 
 		return wrapper;
-
 	}
+	async function create_list() {
+        var url =  '/api/board/create_list';
+        var board_id = document.URL.split('/')[4];
+        await axios({
+            method: 'POST',
+            url: url,
+            data: {
+                'key' : api_key,
+                'board_id': board_id
+            }
+
+        }).then(function(response) {
+            console.log(response.data);
+        }).catch(function(error) {
+            console.log(error)
+        });
+    }
 }
 
 

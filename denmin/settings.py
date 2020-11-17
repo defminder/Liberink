@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import os
 import django_heroku
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -43,6 +44,8 @@ INSTALLED_APPS = [
     'register',
     'boards',
     'api',
+    'appconf',
+    'compressor',
     'rest_framework'
 ]
 
@@ -79,6 +82,12 @@ WSGI_APPLICATION = 'denmin.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+
+
+
+
+#DATABASES['default'] = dj_database_url.config(default= os.environ['DATABASE_URL'])
+
 
 DATABASES = {
 
@@ -156,5 +165,14 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+)
+COMPRESS_ROOT = os.path.join(os.path.dirname(__file__), '../static/')
+ 
+COMPRESS_ENABLED = True
+
 # Activate Django-Heroku.
 django_heroku.settings(locals())

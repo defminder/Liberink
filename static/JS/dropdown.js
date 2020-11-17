@@ -1,8 +1,6 @@
 function dropdown(event) {
     dropdown_target = event.target.parentNode.parentNode.getElementsByClassName("dropdown-content");
     for (let i = 0; i < dropdown_target.length; i++) {
-        console.log(dropdown_target[i]);
-        console.log(dropdown_target[i].classList.contains('show'));
         if (dropdown_target[i].classList.contains('show')){
             dropdown_target[i].classList.remove('show');
         }

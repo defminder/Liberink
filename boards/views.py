@@ -35,12 +35,15 @@ def profile_view(request, username):
 					    "lists": [
 					        {
 					            "title": "To Do",
+					            "stikers" : '[]'
 					        },
 					        {
-					            "title": "Doing"
+					            "title": "Doing",
+					            "stikers" : '[]'
 					        },
 					        {
-					            "title": "Done"
+					            "title": "Done",
+					            "stikers" : '[]'
 					        }
 					    ]
 					})
@@ -62,7 +65,7 @@ def board_view(request, board_id):
 			if len(data):
 				return render(request, 'boards/board.html', 
 					{
-						'lists' : [{'title': item['title'], 'stikers' : item['stikers']} if 'stikers' in item else {'title': item['title']}
+						'lists' : [{'title': item['title'], 'stickers' : item['stickers']} if 'stickers' in item else {'title': item['title']}
 						 for item in data['lists']],
 						 'api_key' : request.user.api_key
 					}

@@ -17,8 +17,7 @@ def registration(response):
 			user.active= True
 			user.staff= False
 			user.admin= False
-			user.api_key = uuid4().hex
-			print(user.api_key)
+			user.api_key = uuid4()
 			user.save()
 			username = user_form.cleaned_data.get('username')
 			password = user_form.cleaned_data.get('password1')
@@ -36,7 +35,6 @@ def login(response):
 		email_or_username = response.POST.get('email_or_username')
 		password =response.POST.get('password')
 		if '@' in email_or_username:
-			print(email_or_username, password)
 			user = EmailBackend().email_authenticate(response, email= email_or_username, password=password)
 		else:
 			user = authenticate(response, username=email_or_username, password=password)
