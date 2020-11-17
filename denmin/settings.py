@@ -27,7 +27,7 @@ SECRET_KEY  = '00%kixx(b3m_gq+h-x62@1z0iq*=_$w9a2c2gg&6)ci^w!hm_+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['denmin.site']
+ALLOWED_HOSTS = ['denmin.site', 'liberink.site']
 
 
 # Application definition
