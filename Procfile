@@ -1,1 +1,1 @@
-web: gunicorn denmin.wsgi
+web: gunicorn liberink.wsgi
