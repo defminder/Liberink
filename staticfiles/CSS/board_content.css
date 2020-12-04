@@ -1,0 +1,179 @@
+.boards {
+    user-select: none;
+    white-space: nowrap;
+    margin-bottom: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 8px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.wrapper {
+    width: 272px;
+    margin: 0 10px;
+    min-height: 89.4%;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: top;
+    white-space: nowrap;
+}
+
+.sticker_wrapper {
+    height: 0%;
+    box-sizing: border-box;
+    display: inline-block;
+}
+
+.list {
+    background-color: #d8d8d8;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    position: relative;
+    white-space: normal;
+    border-radius: 5px !important;
+    box-shadow: 0 1px 4px 0 rgba(21, 27, 38, 0.08);
+    filter: drop-shadow(1px 1px 2px #000);
+
+}
+
+.list > * {
+    margin: 5px 10px 5px 10px;
+
+}
+
+.list_title {
+    background-color: #f8f8f8;
+    border: none;
+    text-align: center;
+    height: 35px;
+    padding: 5px;
+    margin: 5px;
+    resize: none;
+    font-style: bolder;
+    border-bottom: 1px solid #e3e7e8;
+    border-radius: 5px;
+}
+.list_title:hover{
+	cursor : pointer;
+}
+
+.show_edit {
+    background-color: #fff;
+    border: 0.5px solid #888;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+.lists_container {
+    margin-top: 70px;
+    min-height: 670px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border-color: black;
+    border-width: 3px;
+    overflow: auto;
+}
+
+.lists_container > *{
+    margin-top: 30px;
+}
+.add_sticker {
+    margin: 10px 5px 5px 5px;
+    background-color: #f8f8f8;
+}
+
+.sticker {
+    font-family: "RobotoCondensed-Regular";
+    display: flex;
+    min-height: 150px;
+    width: 250px;
+    background-color: #fff;
+    overflow-y: hidden;
+    padding: 30px;
+    resize: none;
+    border: 0;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px 1px rgba(9, 30, 66, .25);
+    border-radius: 5px;
+}
+
+.edit_sticker {
+    width: 250px;
+    border: 0.5px solid #888;
+    box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.2);
+}
+
+.stiker_substrate {
+    background-color: #a8a8a8;
+    border-radius: 5px;
+    height:150px;
+}
+
+.sticker_wrapper {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    height: 150px;
+}
+
+.del_sticker {
+    cursor: pointer;
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    opacity: 0.5;
+}
+
+.del_sticker:hover {
+    opacity: 1;
+}
+
+.del_list{
+    cursor: pointer;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    opacity: 0.8;
+    left: 94.5%;
+    margin: 0px;
+    top: -15px;
+}
+.del_list:hover {
+    opacity: 1;
+}
+
+.edit_modal{
+	display: none;
+	position: fixed;
+	z-index: 1000;
+	left: 0;
+	top: 65px;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+.edit_stiker_btn {
+	margin-top: 5px;
+	display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: .375rem .75rem;
+  font-size: 1.15rem;
+  line-height: 1.5;
+  border-radius: .55rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.btn:focus,.btn:active {
+   outline: none !important;
+   box-shadow: none;
+}
