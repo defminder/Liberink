@@ -8,4 +8,5 @@ urlpatterns = [
 	path('api/board/create_sticker', views.create_sticker, name='create_sticker'),
 	path('api/board/update_sticker_text', views.update_sticker_text, name='update_sticker_text'),
 	path('api/board/delete_sticker', views.delete_sticker, name='delete_sticker'),
+	path('api/board/update_sticker_postition', views.update_sticker_postition, name='update_sticker_postition'),
 ]

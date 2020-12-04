@@ -30,7 +30,7 @@ def update_list_title(request):
 					else:
 						return JsonResponse({'message': 'List title updated. Title invalid.'}, status=status.HTTP_400_BAD_REQUEST)
 				else:
-					return JsonResponse({'message': 'Content not updated. List index invalid.'}, status=status.HTTP_400_BAD_REQUEST)
+					return JsonResponse({'message': 'Content not updated. List id invalid.'}, status=status.HTTP_400_BAD_REQUEST)
 			else:
 				return JsonResponse({'message': 'API key for this board invalid.'}, status=status.HTTP_403_FORBIDDEN)
 		else:
@@ -85,7 +85,7 @@ def delete_list(request):
 					else:
 						return JsonResponse({'message': 'List title not updated. Title invalid.'}, status=status.HTTP_400_BAD_REQUEST)
 				else:
-					return JsonResponse({'message': 'Content not updated. List index invalid.'}, status=status.HTTP_400_BAD_REQUEST)
+					return JsonResponse({'message': 'Content not updated. List id invalid.'}, status=status.HTTP_400_BAD_REQUEST)
 			else:
 				return JsonResponse({'message': 'API key for this board invalid.'}, status=status.HTTP_403_FORBIDDEN)
 		else:
@@ -118,7 +118,7 @@ def create_sticker(request):
 					else:
 						return JsonResponse({'message': 'Stiker not added. Title invalid.'}, status=status.HTTP_400_BAD_REQUEST)
 				else:
-					return JsonResponse({'message': 'Stiker not added. List index invalid.'}, status=status.HTTP_400_BAD_REQUEST)
+					return JsonResponse({'message': 'Stiker not added. List id invalid.'}, status=status.HTTP_400_BAD_REQUEST)
 			else:
 				return JsonResponse({'message': 'API key for this board invalid.'}, status=status.HTTP_403_FORBIDDEN)
 		else:
@@ -150,9 +150,9 @@ def update_sticker_text(request):
 						else:
 							return JsonResponse({'message': 'Stickers updated. Title invalid.'}, status=status.HTTP_400_BAD_REQUEST)
 					else:
-						return JsonResponse({'message': 'Content not updated. Sticker index invalid.'}, status=status.HTTP_400_BAD_REQUEST)
+						return JsonResponse({'message': 'Content not updated. Sticker id invalid.'}, status=status.HTTP_400_BAD_REQUEST)
 				else:
-					return JsonResponse({'message': 'Content not updated. List index invalid.'}, status=status.HTTP_400_BAD_REQUEST)
+					return JsonResponse({'message': 'Content not updated. List id invalid.'}, status=status.HTTP_400_BAD_REQUEST)
 			else:
 				return JsonResponse({'message': 'API key for this board invalid.'}, status=status.HTTP_403_FORBIDDEN)
 		else:
@@ -186,9 +186,9 @@ def delete_sticker(request):
 						else:
 							return JsonResponse(board_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 					else:
-						return JsonResponse({'message': 'Content not updated. Sticker index invalid.'}, status=status.HTTP_400_BAD_REQUEST)
+						return JsonResponse({'message': 'Content not updated. Sticker id invalid.'}, status=status.HTTP_400_BAD_REQUEST)
 				else:
-					return JsonResponse({'message': 'Content not updated. List index invalid.'}, status=status.HTTP_400_BAD_REQUEST)
+					return JsonResponse({'message': 'Content not updated. List id invalid.'}, status=status.HTTP_400_BAD_REQUEST)
 			else:
 				return JsonResponse({'message': 'API key for this board invalid.'}, status=status.HTTP_403_FORBIDDEN)
 		else:
@@ -198,3 +198,47 @@ def delete_sticker(request):
 	except:
 		print(traceback.format_exc())
 		return JsonResponse({'message': 'Server API error.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+
+@api_view(['PUT'])
+def update_sticker_postition(request):
+	try:
+		required_args = ['key', 'board_id', 'old_list_id', 'old_sticker_id', 'new_list_id', 'new_sticker_id']
+		if all(arg in required_args for arg in request.data):
+			board = Board.objects.get(id = request.data['board_id']) 
+			if str(board.owner.api_key) == str(request.data['key']):
+				board_data = board.content	
+				if (is_int(request.data['old_list_id'])) and (0 <= request.data['old_list_id'] < len(board_data['lists'])):
+					if (is_int(request.data['new_list_id'])) and (0 <= request.data['new_list_id'] < len(board_data['lists'])):
+						if (is_int(request.data['old_sticker_id'])) and (0 <= request.data['old_sticker_id'] < len(board_data['lists'][request.data['old_list_id']])):
+							if (is_int(request.data['new_sticker_id'])) and (0 <= request.data['new_sticker_id'] < len(board_data['lists'][request.data['new_list_id']]) + 1):
+								print(board_data['lists'][request.data['old_list_id']]['stickers'][request.data['old_sticker_id']])
+								sticker = board_data['lists'][request.data['old_list_id']]['stickers'][request.data['old_sticker_id']]
+								board_data['lists'][request.data['old_list_id']]['stickers'].remove(board_data['lists'][request.data['old_list_id']]['stickers'][request.data['old_sticker_id']])
+								board_data['lists'][request.data['new_list_id']]['stickers'].insert(request.data['new_sticker_id'], sticker)
+								board_serializer = BoardSerializer(board, data= board_data) 
+								if board_serializer.is_valid():
+									board_serializer.save()
+									return JsonResponse({'message': 'Sticker posititon successfully updated'}, status=status.HTTP_200_OK)
+								else:
+									return JsonResponse({'message': 'Sticker posititon not updated'}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+							else:
+								return JsonResponse({'message': 'Sticker posititon not updated. New sticker id invalid.'}, status=status.HTTP_400_BAD_REQUEST)
+						else:
+							return JsonResponse({'message': 'Sticker posititon not updated. Old sticker id invalid.'}, status=status.HTTP_400_BAD_REQUEST)
+					else:
+						return JsonResponse({'message': 'Sticker posititon not updated. New list id invalid.'}, status=status.HTTP_400_BAD_REQUEST)
+				else:
+					return JsonResponse({'message': 'Sticker posititon not updated. Old list id invalid.'}, status=status.HTTP_400_BAD_REQUEST)
+			else:
+				return JsonResponse({'message': 'API key for this board invalid.'}, status=status.HTTP_403_FORBIDDEN)
+		else:
+			return JsonResponse({'message': 'Not enough arguments.'}, status=status.HTTP_400_BAD_REQUEST)
+	except Board.DoesNotExist: 
+		return JsonResponse({'message': 'Board not found.'}, status=status.HTTP_404_NOT_FOUND)
+	except:
+		print(traceback.format_exc())
+		return JsonResponse({'message': 'Server API error.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+  	

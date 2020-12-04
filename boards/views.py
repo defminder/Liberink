@@ -35,15 +35,15 @@ def profile_view(request, username):
 					    "lists": [
 					        {
 					            "title": "To Do",
-					            "stikers" : '[]'
+					            "stickers" : []
 					        },
 					        {
 					            "title": "Doing",
-					            "stikers" : '[]'
+					            "stickers" : []
 					        },
 					        {
 					            "title": "Done",
-					            "stikers" : '[]'
+					            "stickers" : []
 					        }
 					    ]
 					})
@@ -63,6 +63,8 @@ def board_view(request, board_id):
 		if request.user == Board.objects.get(id= board_id).owner:
 			data = Board.objects.get(id= board_id).content
 			if len(data):
+				print([{'title': item['title'], 'stickers' : item['stickers']} if 'stickers' in item else {'title': item['title']}
+						 for item in data['lists']])
 				return render(request, 'boards/board.html', 
 					{
 						'lists' : [{'title': item['title'], 'stickers' : item['stickers']} if 'stickers' in item else {'title': item['title']}
@@ -76,4 +78,5 @@ def board_view(request, board_id):
 			return render(request, 'boards/forbidden.html', {})
 	except Board.DoesNotExist:
 		return render(request, 'boards/not_found.html', {})
+
 
