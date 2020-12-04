@@ -70,10 +70,6 @@ function on_stiker_click(e) {
 
             }
             document.onmouseup = function stiker_drop(e) {
-                if ((old_list_id != new_list_id) || (old_sticker_id != new_sticker_id)){
-                    console.log(old_list_id,  new_list_id, old_sticker_id, new_sticker_id);
-                    update_sticker_postition(old_list_id, new_list_id, old_sticker_id, new_sticker_id);
-                }
                 document.onmousemove = null;
                 document.onmouseup = null;
                 stiker.onmouseup = null;
@@ -83,6 +79,10 @@ function on_stiker_click(e) {
                 stiker.style.top = 'auto';
                 stiker.style.zIndex = 'auto';
                 if (targetMoved) {
+                    if ((old_list_id != new_list_id) || (old_sticker_id != new_sticker_id)){
+                        console.log(old_list_id,  new_list_id, old_sticker_id, new_sticker_id);
+                        update_sticker_postition(old_list_id, new_list_id, old_sticker_id, new_sticker_id);
+                    }
                     targetMoved = false;
                     var moved = false;
                     var wrappers = document.getElementsByClassName("wrapper");
