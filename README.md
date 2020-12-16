@@ -1,8 +1,7 @@
 # Liberink
-It's a simple kanban boards website for make your own dailys workflow plan
+### [It's a simple kanban boards website for make your own dailys workflow plan](http://liberink.site/)
 
-
-# What is kanban board ?
+### What is kanban board ?
 
 ![Kanban](https://d112uwirao0vo9.cloudfront.net/wp-content/uploads/2018/11/Kanban-Board.png)
 
