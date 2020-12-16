@@ -85,28 +85,8 @@ WSGI_APPLICATION = 'liberink.wsgi.application'
 
 
 
-#DATABASES['default'] = dj_database_url.config(default= os.environ['DATABASE_URL'])
+DATABASES['default'] = dj_database_url.config(default= os.environ['DATABASE_URL'])
 
-
-DATABASES = {
-
-    'default': {
-
-        'ENGINE': 'django.db.backends.postgresql',
-
-        'NAME': 'da4odi4qdg1jec',
-
-        'USER': 'gvuxgkdvkzqjbn',
-
-        'PASSWORD': '0ecbedc1c64156df3e50c28eebe8b7cac91f92289d62a88ef94e9f22046cbd41',
-
-        'HOST': 'ec2-52-22-216-69.compute-1.amazonaws.com',
-
-        'PORT': '5432',
-
-    }
-
-}
 
 
 
