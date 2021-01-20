@@ -50,7 +50,7 @@ function edit_sticker(sticker) {
         }
         else if (!e.shiftKey && e.keyCode == 13) {
             e.preventDefault();
-            save_sticker_data(event);
+            save_sticker_data(e);
         }
     }
 

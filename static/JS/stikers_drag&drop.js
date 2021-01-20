@@ -5,8 +5,8 @@ function on_stiker_click(e) {
             var targetMoved = false;
             var parentList = null;
             var coords = getCoords(stiker);
-            var shiftX = e.pageX - coords.left;
-            var shiftY = e.pageY - coords.top;
+            var shiftX = e.clientX - coords.left;
+            var shiftY = e.clientY - coords.top;
             var drop_to = 0;
             var new_list_id = 0;
             var new_sticker_id = 0;
@@ -25,20 +25,20 @@ function on_stiker_click(e) {
                 stiker.style.position = 'fixed';
                 document.body.appendChild(stiker);
                 stiker.style.cursor = 'grabbing';
-                stiker.style.left = e.pageX - shiftX + 'px';
-                stiker.style.top = e.pageY - shiftY + 'px';
+                stiker.style.left = e.clientX - shiftX + 'px';
+                stiker.style.top = e.clientY - shiftY + 'px';
                 var wrappers = document.getElementsByClassName("wrapper");
                 for (let i = 0; i < wrappers.length; i++) {
                     var wrapper = wrappers[i].getBoundingClientRect();
                     var list = wrappers[i].getElementsByClassName('list')[0];
-                    if (e.pageX > wrapper.x && e.pageY > wrapper.y && e.pageX < wrapper.right && e.pageY < wrapper.bottom) {
+                    if (e.clientX > wrapper.x && e.clientY > wrapper.y && e.clientX < wrapper.right && e.clientY < wrapper.bottom) {
                         new_list_id = [].indexOf.call(wrappers[i].parentNode.children, wrappers[i]);
                         if (list.getElementsByClassName('stiker_substrate').length > 0) list.getElementsByClassName('stiker_substrate')[0].remove();
                         list_stickers = list.getElementsByClassName('sticker_wrapper');
                         if (list_stickers.length > 0) {
                             for (let i = 0; i < list_stickers.length; i++) {
                                 coordinates = list_stickers[i].getBoundingClientRect();
-                                if (e.pageY > (coordinates.y + (coordinates.height / 2))) {
+                                if (e.clientY > (coordinates.y + (coordinates.height / 2))) {
                                     drop_postition = i + 1;
                                 }
                             };
@@ -80,7 +80,6 @@ function on_stiker_click(e) {
                 stiker.style.zIndex = 'auto';
                 if (targetMoved) {
                     if ((old_list_id != new_list_id) || (old_sticker_id != new_sticker_id)){
-                        console.log(old_list_id,  new_list_id, old_sticker_id, new_sticker_id);
                         update_sticker_postition(old_list_id, new_list_id, old_sticker_id, new_sticker_id);
                     }
                     targetMoved = false;
@@ -88,7 +87,7 @@ function on_stiker_click(e) {
                     var wrappers = document.getElementsByClassName("wrapper");
                     for (let i = 0; i < wrappers.length; i++) {
                         var wrapper = wrappers[i].getBoundingClientRect();
-                        if (e.pageX > wrapper.x && e.pageY > wrapper.y && e.pageX < wrapper.right && e.pageY < wrapper.bottom) {
+                        if (e.clientX > wrapper.x && e.clientY > wrapper.y && e.clientX < wrapper.right && e.clientY < wrapper.bottom) {
                             var list = wrappers[i].getElementsByClassName('list')[0];
                             if (list.getElementsByClassName('stiker_substrate').length > 0) {
                                 list.removeChild(list.getElementsByClassName('stiker_substrate')[0]);
@@ -148,8 +147,8 @@ function on_stiker_click(e) {
         var targetMoved = false;
         var parentList = null;
         var coords = getCoords(stiker);
-        var shiftX = e.touches[0].pageX - coords.left;
-        var shiftY = e.touches[0].pageY - coords.top;
+        var shiftX = e.touches[0].clientX - coords.left;
+        var shiftY = e.touches[0].clientY - coords.top;
 
         stiker.style.zIndex = 1000;
 
@@ -164,12 +163,12 @@ function on_stiker_click(e) {
             stiker.style.position = 'fixed';
             document.body.appendChild(stiker);
             stiker.style.cursor = 'grabbing';
-            stiker.style.left = e.touches[0].pageX - shiftX + 'px';
-            stiker.style.top = e.touches[0].pageY - shiftY + 'px';
+            stiker.style.left = e.touches[0].clientX - shiftX + 'px';
+            stiker.style.top = e.touches[0].clientY - shiftY + 'px';
             var wrappers = document.getElementsByClassName("wrapper");
             for (let i = 0; i < wrappers.length; i++) {
                 var wrapper = wrappers[i].getBoundingClientRect();
-                if (e.touches[0].pageX > wrapper.x && e.touches[0].pageY > wrapper.y && e.touches[0].pageX < wrapper.right && e.touches[0].pageY < wrapper.bottom) {
+                if (e.touches[0].clientX > wrapper.x && e.touches[0].clientY > wrapper.y && e.touches[0].clientX < wrapper.right && e.touches[0].clientY < wrapper.bottom) {
                     if (wrappers[i].getElementsByClassName('stiker_substrate').length == 0) {
                         var list = wrappers[i].getElementsByClassName('list')[0];
                         parentList = list;
@@ -234,7 +233,7 @@ document.ondragstart = function() {
 function getCoords(elem) { // кроме IE8-
     var box = elem.getBoundingClientRect();
     return {
-        top: box.top + pageYOffset,
+        top: box.top + pageYOffset, 
         left: box.left + pageXOffset
     };
 }
