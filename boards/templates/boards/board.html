@@ -27,6 +27,7 @@
             <script type="text/javascript" src="{% static 'JS/edit_columns.js' %}" async></script>
             <script type="text/javascript"> var api_key = "{{api_key}}"; var board_id = document.URL.split('/')[4];</script>
             {% endcompress %}
+            <meta http-equiv="Cache-Control" content="no-cache">
         </head>
     {% endblock %}
     {% block content %}
