@@ -39,16 +39,16 @@ function edit_sticker(sticker) {
     }
 
     document.onmousedown = function(event) {
-        if (event.target != edit_block) {
+        if (event.target != edit_area) {
             save_sticker_data(event);
         };
     };
 
     document.onkeypress = function(e) {
-        if (e.ctrlKey && e.keyCode == 13){
-            edit_area.value += '\n';
+        if (e.shiftKey && e.keyCode == 13){
+            // auto add new line
         }
-        else if (!e.ctrlKey && e.keyCode == 13) {
+        else if (!e.shiftKey && e.keyCode == 13) {
             e.preventDefault();
             save_sticker_data(event);
         }

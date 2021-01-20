@@ -211,9 +211,8 @@ def update_sticker_postition(request):
 				board_data = board.content	
 				if (is_int(request.data['old_list_id'])) and (0 <= request.data['old_list_id'] < len(board_data['lists'])):
 					if (is_int(request.data['new_list_id'])) and (0 <= request.data['new_list_id'] < len(board_data['lists'])):
-						if (is_int(request.data['old_sticker_id'])) and (0 <= request.data['old_sticker_id'] < len(board_data['lists'][request.data['old_list_id']])):
+						if (is_int(request.data['old_sticker_id'])) and (0 <= request.data['old_sticker_id'] < len(board_data['lists'][request.data['old_list_id']]['stickers'])):
 							if (is_int(request.data['new_sticker_id'])) and (0 <= request.data['new_sticker_id'] < len(board_data['lists'][request.data['new_list_id']]) + 1):
-								print(board_data['lists'][request.data['old_list_id']]['stickers'][request.data['old_sticker_id']])
 								sticker = board_data['lists'][request.data['old_list_id']]['stickers'][request.data['old_sticker_id']]
 								board_data['lists'][request.data['old_list_id']]['stickers'].remove(board_data['lists'][request.data['old_list_id']]['stickers'][request.data['old_sticker_id']])
 								board_data['lists'][request.data['new_list_id']]['stickers'].insert(request.data['new_sticker_id'], sticker)
