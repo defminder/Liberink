@@ -18,10 +18,11 @@ def update_list_title(request):
 	try:
 		required_args = ['key', 'board_id', 'list_id', 'title']
 		if all(arg in required_args for arg in request.data):
-			board = Board.objects.get(id = request.data['board_id']) 
+			board = Board.objects.get(id = request.data['board_id'])
 			if str(board.owner.api_key) == str(request.data['key']):
 				board_data = board.content
 				if (is_int(request.data['list_id'])) and (0 <= request.data['list_id'] < len(board_data['lists'])):
+					board_data['lists'][request.data['list_id']]['title'] = request.data['title']
 					board_serializer = BoardSerializer(board, data= board_data) 
 					if board_serializer.is_valid():
 						board_serializer.save()
