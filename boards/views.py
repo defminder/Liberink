@@ -64,13 +64,17 @@ def profile_view(request, username):
 def board_view(request, board_id):
 	try:
 		if request.user == Board.objects.get(id= board_id).owner:
-			data = Board.objects.get(id= board_id).content
+			board = Board.objects.get(id= board_id)
+			board_title = board.title
+			data = board.content
 			if len(data):
 				return render(request, 'boards/board.html', 
 					{
 						'lists' : [{'title': item['title'], 'stickers' : item['stickers']} if 'stickers' in item else {'title': item['title']}
 						 for item in data['lists']],
-						 'api_key' : request.user.api_key
+						'title': board_title,
+						'api_key' : request.user.api_key,
+
 					}
 				)
 			else:

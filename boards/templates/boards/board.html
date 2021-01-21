@@ -34,6 +34,7 @@
     {% load static %}
     <div id='edit_columns' class="edit_modal" style="display: none;"></div>
     <div id='lists_board'>
+        <div class="board_header_text">{{ title }}</div>
         <div class='lists_container'>
             {% for list in lists %}
             <div class='wrapper'>
