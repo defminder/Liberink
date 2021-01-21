@@ -70,6 +70,7 @@ function edit_sticker(sticker) {
     };
 
     document.onkeypress = function(e) {
+        
         if (e.shiftKey && e.keyCode == 13){
             // auto add new line
         }
@@ -77,7 +78,9 @@ function edit_sticker(sticker) {
             e.preventDefault();
             save_sticker_data(e);
         }
-        up_sticker();
+        else{
+            up_sticker();
+        }
     }
 
     async function update_text_api(text, list_id, sticker_id) {
