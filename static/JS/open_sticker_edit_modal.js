@@ -4,8 +4,9 @@ function edit_sticker(sticker) {
     var edit_modal = sticker.children[1];
     var edit_block = edit_modal.children[0];
     var edit_area = edit_block.children[0];
-
+    
     sticker.parentNode.style.filter = 'none';
+    document.body.style.overflowY = 'hidden';
     edit_modal.style.display = 'block';
     edit_block.style.display = 'block';
     edit_block.style.position = 'fixed';
@@ -15,6 +16,29 @@ function edit_sticker(sticker) {
     edit_area.style.zIndex = 1001;
     edit_area.style.cursor = 'text';
     edit_area.select();
+    
+    function up_sticker(){
+        document.body.style.overflowY = 'scroll';
+        var targetPosition = {
+            top: window.pageYOffset + edit_area.getBoundingClientRect().top,
+            left: window.pageXOffset + edit_area.getBoundingClientRect().left,
+            right: window.pageXOffset + edit_area.getBoundingClientRect().right,
+            bottom: window.pageYOffset + edit_area.getBoundingClientRect().bottom
+        },
+        windowPosition = {
+            top: window.pageYOffset,
+            left: window.pageXOffset,
+            right: window.pageXOffset + document.documentElement.clientWidth,
+            bottom: window.pageYOffset + document.documentElement.clientHeight
+        };
+        if (targetPosition.bottom > windowPosition.bottom){
+            edit_block.style.top = parseFloat(edit_block.style.top) - (targetPosition.bottom - windowPosition.bottom) + 'px';
+            window.scrollBy({top: targetPosition.bottom - windowPosition.bottom});
+        };
+        document.body.style.overflowY = 'hidden';
+    }
+    up_sticker();
+
 
     function save_sticker_data(event) {
         var lists_container = sticker.parentNode.parentNode.parentNode;
@@ -24,6 +48,7 @@ function edit_sticker(sticker) {
                 for (let j = 1; j < list_container.children.length - 1; j++) {
                     if (list_container.children[j] == sticker) {
                         update_text_api(edit_area.value, i, j - 1);
+                        document.body.style.overflowY = 'scroll';
                         break index_find;
                     }
                 }
@@ -52,6 +77,7 @@ function edit_sticker(sticker) {
             e.preventDefault();
             save_sticker_data(e);
         }
+        up_sticker();
     }
 
     async function update_text_api(text, list_id, sticker_id) {

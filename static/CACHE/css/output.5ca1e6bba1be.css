@@ -177,7 +177,7 @@
     font-weight: bold;
     font-style: italic;
     src: local('RobotoCondensed-BoldItalic'),
-        url('/static/CSS/fonts/RobotoCondensed/RobotoCondensed-BoldItalic.ttf?b29bc9d211ae') format('truetype');
+        url('/static/CSS/fonts/RobotoCondensed/RobotoCondensed-BoldItalic.ttf?2912f5b11247') format('truetype');
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -188,7 +188,7 @@
     font-weight: bold;
     font-style: normal;
     src: local('RobotoCondensed-Bold'),
-        url('/static/CSS/fonts/RobotoCondensed/RobotoCondensed-Bold.ttf?b29bc9d211ae') format('truetype');
+        url('/static/CSS/fonts/RobotoCondensed/RobotoCondensed-Bold.ttf?2912f5b11247') format('truetype');
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -199,7 +199,7 @@
     font-weight: bold;
     font-style: normal;
     src: local('RobotoCondensed-Regular'),
-        url('/static/CSS/fonts/RobotoCondensed/RobotoCondensed-Regular.ttf?b29bc9d211ae') format('truetype');
+        url('/static/CSS/fonts/RobotoCondensed/RobotoCondensed-Regular.ttf?2912f5b11247') format('truetype');
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -210,7 +210,7 @@
     font-weight: bold;
     font-style: normal;
     src: local('RobotoCondensed-Light'),
-        url('/static/CSS/fonts/RobotoCondensed/RobotoCondensed-Light.ttf?b29bc9d211ae') format('truetype');
+        url('/static/CSS/fonts/RobotoCondensed/RobotoCondensed-Light.ttf?2912f5b11247') format('truetype');
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -271,6 +271,7 @@ background: linear-gradient(270deg, rgba(255,75,0,1) 0%, rgba(169,54,7,1) 100%);
     width: 100%;
     height: 100vh;
 }
+
 
 .pulse {
     display: flex;
@@ -337,7 +338,7 @@ background: linear-gradient(270deg, rgba(255,75,0,1) 0%, rgba(169,54,7,1) 100%);
 .container_board {
     width: 300px;
     height: 200px;
-    background-image: url('/static/images/boards/1.jpg?2e8cc75b31d9');
+    background-image: url('/static/images/boards/1.jpg?2912f5b11247');
     background-size: 300px 200px;
     border-radius: 3%;
     background-color: #ffffff;
@@ -360,7 +361,7 @@ background: linear-gradient(270deg, rgba(255,75,0,1) 0%, rgba(169,54,7,1) 100%);
 
 .container_board_description {
     font-size: 15px;
-    text-align: center;
+    text-align: left;
     padding: 15px;
 
 }
@@ -429,6 +430,21 @@ background: linear-gradient(270deg, rgba(255,75,0,1) 0%, rgba(169,54,7,1) 100%);
 
 .dropdown a:hover {
     background-color: #ddd;
+}
+
+
+.del_list{
+    cursor: pointer;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    opacity: 0.8;
+    left: 94.5%;
+    margin: 0px;
+    top: -15px;
+}
+.del_list:hover {
+    opacity: 1;
 }
 
 .edit_menu > * {
@@ -580,7 +596,6 @@ background: linear-gradient(270deg, rgba(255,75,0,1) 0%, rgba(169,54,7,1) 100%);
     justify-content: center;
     border-color: black;
     border-width: 3px;
-    overflow: auto;
 }
 
 .lists_container > *{
@@ -592,7 +607,7 @@ background: linear-gradient(270deg, rgba(255,75,0,1) 0%, rgba(169,54,7,1) 100%);
 }
 
 .sticker {
-    font-family: "RobotoCondensed-Bold";
+    font-family: "RobotoCondensed-Regular";
     display: flex;
     min-height: 150px;
     width: 250px;
@@ -606,7 +621,6 @@ background: linear-gradient(270deg, rgba(255,75,0,1) 0%, rgba(169,54,7,1) 100%);
     border-radius: 5px;
 }
 
-/*margin: 5px 10px 5px 10px;*/
 .edit_sticker {
     width: 250px;
     border: 0.5px solid #888;
@@ -622,7 +636,6 @@ background: linear-gradient(270deg, rgba(255,75,0,1) 0%, rgba(169,54,7,1) 100%);
 .sticker_wrapper {
     display: flex;
     justify-content: flex-end;
-    position: relative;
     height: 150px;
 }
 

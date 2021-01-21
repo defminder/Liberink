@@ -2,11 +2,14 @@ function on_stiker_click(e) {
     var stiker = e.target.parentNode;
     if (e.type == 'mousedown') {
         if (e.which == 1 && e.target.classList.contains('sticker')) {
+            
+            var page_down_scroll = 0;
+            var page_up_scroll = 0
             var targetMoved = false;
             var parentList = null;
             var coords = getCoords(stiker);
-            var shiftX = e.clientX - coords.left;
-            var shiftY = e.clientY - coords.top;
+            var shiftX = e.pageX - coords.left;
+            var shiftY = e.pageY - coords.top;
             var drop_to = 0;
             var new_list_id = 0;
             var new_sticker_id = 0;
@@ -19,8 +22,26 @@ function on_stiker_click(e) {
                 div.classList.add('stiker_substrate');
                 return div;
             }
-
             function moveAt(e) {
+
+                if ((e.clientY >= document.documentElement.clientHeight * 0.90) && (e.pageY < document.body.scrollHeight)){
+                    if (page_down_scroll == 0) {
+                        page_down_scroll = setInterval("window.scrollBy({ top: 100, behavior: 'smooth' });", 100);
+                    }
+                }
+                else{
+                    clearInterval(page_down_scroll);
+                    page_down_scroll = 0 ;
+                }
+                if (e.clientY < document.documentElement.clientHeight * 0.10){
+                    if (page_up_scroll == 0) {
+                        page_up_scroll = setInterval("document.documentElement.scrollBy({ top: -100, behavior: 'smooth' });", 100);
+                    }
+                }
+                else{
+                    clearInterval(page_up_scroll);
+                    page_up_scroll = 0;
+                }
                 var drop_postition = 0;
                 stiker.style.position = 'fixed';
                 document.body.appendChild(stiker);
@@ -38,26 +59,36 @@ function on_stiker_click(e) {
                         if (list_stickers.length > 0) {
                             for (let i = 0; i < list_stickers.length; i++) {
                                 coordinates = list_stickers[i].getBoundingClientRect();
-                                if (e.clientY > (coordinates.y + (coordinates.height / 2))) {
-                                    drop_postition = i + 1;
+                                if (((document.documentElement.scrollHeight - document.documentElement.scrollTop) % 160) - 116 !== 0){
+                                    if (e.clientY > coordinates.y + coordinates.height) {
+                                        drop_postition += 1;
+                                    }
                                 }
+                                else{
+                                    if (e.clientY > coordinates.y) {
+                                        drop_postition += 1;
+                                    }
+                                }
+                                
                             };
                             new_sticker_id = drop_postition;
                             drop_to = drop_postition;
                             if (drop_postition > 0){
                                 list.children[drop_postition].after(createStikerSubstrate(stiker));
                             }
-                            else{
+                            else {
                                 list.children[1].before(createStikerSubstrate(stiker));
-                            };
+                            }
                         }
                         else{
+                            new_sticker_id = 0;
                             drop_to = 0;
                             add_sticker_button = list.getElementsByTagName('button')[0];
                             add_sticker_button.before(createStikerSubstrate(stiker));
                         }
                         parentList = list;
-                    } else {
+                    } 
+                    else {
                         if (wrappers[i].getElementsByClassName('stiker_substrate').length > 0) {
                             if (list != parentList) {
                                 var list = wrappers[i].getElementsByClassName('list')[0]
@@ -67,9 +98,14 @@ function on_stiker_click(e) {
                         }
                     }
                 }
-
             }
             document.onmouseup = function stiker_drop(e) {
+                if (page_down_scroll) {
+                    clearInterval(page_down_scroll);
+                }
+                if (page_up_scroll){
+                    clearInterval(page_up_scroll);
+                }
                 document.onmousemove = null;
                 document.onmouseup = null;
                 stiker.onmouseup = null;

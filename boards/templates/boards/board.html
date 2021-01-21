@@ -14,8 +14,8 @@
             <link rel="stylesheet" href="{% static 'CSS/base_content.css' %}" />
             <link rel="stylesheet" href="{% static 'CSS/board_content.css' %}" />
             {% endcompress %}
-            <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
             {% compress js %}
+            <script type="text/javascript" src="{% static 'JS/axios.min.js' %}"></script>
             <script type="text/javascript" src="{% static 'JS/dropdown.js' %}"></script>
             <script type="text/javascript" src="{% static 'JS/axios_settings.js' %}"></script>
             <script type="text/javascript" src="{% static 'JS/edit_list_title.js' %}"></script>
@@ -45,7 +45,6 @@
                         <div id="edit_columns" class="edit_modal" style="top: 0; display: none;">
                             <div id='on_sticker_edit edit_modal' style="display: none">
                                 <textarea class="sticker" spellcheck="false" oninput="OnInput(event)">{{ sticker.text }}</textarea>
-                                
                             </div>
                         </div>
                         <img src="{% static 'images/icons/close.png' %}" onclick="delete_sticker(event)" class='del_sticker'>

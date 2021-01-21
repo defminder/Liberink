@@ -22,7 +22,6 @@ def update_list_title(request):
 			if str(board.owner.api_key) == str(request.data['key']):
 				board_data = board.content
 				if (is_int(request.data['list_id'])) and (0 <= request.data['list_id'] < len(board_data['lists'])):
-					board_data['lists'][request.data['list_id']]['title'] = request.data['title']
 					board_serializer = BoardSerializer(board, data= board_data) 
 					if board_serializer.is_valid():
 						board_serializer.save()
@@ -54,7 +53,7 @@ def create_list(request):
 				board_serializer = BoardSerializer(board, data= board_data) 
 				if board_serializer.is_valid():
 					board_serializer.save()
-					return JsonResponse({'message': 'Content successfully updated'}, status=status.HTTP_200_OK)
+					return JsonResponse({'message': 'List created successfully created.'}, status=status.HTTP_200_OK)
 				else:
 					return JsonResponse(board_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 			else:
@@ -81,9 +80,9 @@ def delete_list(request):
 					board_serializer = BoardSerializer(board, data= board_data) 
 					if board_serializer.is_valid():
 						board_serializer.save()
-						return JsonResponse({'message': 'List title successfully updated'}, status=status.HTTP_200_OK)
+						return JsonResponse({'message': 'List successfully deleted.'}, status=status.HTTP_200_OK)
 					else:
-						return JsonResponse({'message': 'List title not updated. Title invalid.'}, status=status.HTTP_400_BAD_REQUEST)
+						return JsonResponse({'message': 'List not updated. API error.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 				else:
 					return JsonResponse({'message': 'Content not updated. List id invalid.'}, status=status.HTTP_400_BAD_REQUEST)
 			else:
@@ -212,7 +211,7 @@ def update_sticker_postition(request):
 				if (is_int(request.data['old_list_id'])) and (0 <= request.data['old_list_id'] < len(board_data['lists'])):
 					if (is_int(request.data['new_list_id'])) and (0 <= request.data['new_list_id'] < len(board_data['lists'])):
 						if (is_int(request.data['old_sticker_id'])) and (0 <= request.data['old_sticker_id'] < len(board_data['lists'][request.data['old_list_id']]['stickers'])):
-							if (is_int(request.data['new_sticker_id'])) and (0 <= request.data['new_sticker_id'] < len(board_data['lists'][request.data['new_list_id']]) + 1):
+							if (is_int(request.data['new_sticker_id'])) and (0 <= request.data['new_sticker_id'] < len(board_data['lists'][request.data['new_list_id']]['stickers']) + 1):
 								sticker = board_data['lists'][request.data['old_list_id']]['stickers'][request.data['old_sticker_id']]
 								board_data['lists'][request.data['old_list_id']]['stickers'].remove(board_data['lists'][request.data['old_list_id']]['stickers'][request.data['old_sticker_id']])
 								board_data['lists'][request.data['new_list_id']]['stickers'].insert(request.data['new_sticker_id'], sticker)

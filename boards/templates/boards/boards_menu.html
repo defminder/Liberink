@@ -46,6 +46,7 @@
                         </div>
                         {% endif %}
                         {% endif %}
+                        <img src="/static/images/icons/delete.png" style="display: block;" class="del_list">
                     </div>
                 </a>
                 {% endfor %}
@@ -57,7 +58,6 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h3 class="modal-title"><img class='modal_icon  ' src="{% static 'images/icons/board.png' %}" /> Create board</h3>
-                            <img src="{% static 'images/icons/close.png' %}" class="close"></img>
                         </div>
                         <div class="modal-body">
                             <form method="POST" class="form_create_board needs-validation" autocomplete='off' novalidate>
@@ -86,6 +86,6 @@
             <script type="text/javascript" src ="{% static 'JS/dropdown.js' %}" ></script>
             <script type="text/javascript" src ="{% static 'JS/open_modal_form.js' %}" ></script>
             <script type="text/javascript" src ="{% static 'JS/form_validation.js' %}" ></script>
-            {% endcompress %}
+        {% endcompress %}
     {% endblock %}
 </body>

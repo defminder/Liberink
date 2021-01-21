@@ -77,7 +77,6 @@
     justify-content: center;
     border-color: black;
     border-width: 3px;
-    overflow: auto;
 }
 
 .lists_container > *{
@@ -118,7 +117,6 @@
 .sticker_wrapper {
     display: flex;
     justify-content: flex-end;
-    position: relative;
     height: 150px;
 }
 

@@ -1,7 +1,9 @@
+import uuid
+
+
 from django.db import models
 from django.conf import settings
 from register.models import User
-import uuid
 
 
 # JSONFiled defult must be callable
@@ -13,4 +15,5 @@ class Board(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     description = models.TextField(blank=True)
+    created = models.DateTimeField(auto_now_add=True)
     content = models.JSONField(default= defult_dict)

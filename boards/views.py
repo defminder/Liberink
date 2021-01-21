@@ -1,3 +1,8 @@
+from datetime import datetime
+import uuid
+import traceback
+import json
+
 from django.shortcuts import render, redirect
 from django.http.response import JsonResponse
 from rest_framework.parsers import JSONParser 
@@ -14,15 +19,12 @@ from boards.forms import CreateBoard
 from boards.models import Board
 
 from boards.serializers import BoardSerializer
-import uuid
-import traceback
-import json
+
 
 @login_required(login_url='/login')
 def profile_view(request, username):
 	try:
 		User = get_user_model()
-		u = User.objects.get(username=username)
 		if request.user.username == username:
 			if request.method == 'POST':
 				user = User.objects.get(api_key = request.user.api_key)
@@ -31,6 +33,7 @@ def profile_view(request, username):
 					owner= user, 
 					title= request.POST['title'], 
 					description= request.POST['description'],
+					created= datetime.now(),
 					content = {
 					    "lists": [
 					        {
@@ -63,8 +66,6 @@ def board_view(request, board_id):
 		if request.user == Board.objects.get(id= board_id).owner:
 			data = Board.objects.get(id= board_id).content
 			if len(data):
-				print([{'title': item['title'], 'stickers' : item['stickers']} if 'stickers' in item else {'title': item['title']}
-						 for item in data['lists']])
 				return render(request, 'boards/board.html', 
 					{
 						'lists' : [{'title': item['title'], 'stickers' : item['stickers']} if 'stickers' in item else {'title': item['title']}

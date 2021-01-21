@@ -174,25 +174,48 @@
 
 @font-face {
     font-family: 'RobotoCondensed-BoldItalic';
-    font-weight: normal;
-    font-style: normal;
+    font-weight: bold;
+    font-style: italic;
     src: local('RobotoCondensed-BoldItalic'),
-        url('/static/CSS/fonts/RobotoCondensed/RobotoCondensed-BoldItalic.ttf?b29bc9d211ae') format('truetype');
+        url('/static/CSS/fonts/RobotoCondensed/RobotoCondensed-BoldItalic.ttf?2912f5b11247') format('truetype');
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
 @font-face {
-    font-family: 'FlowExt';
-    font-weight: normal;
+    font-family: 'RobotoCondensed-Bold';
+    font-weight: bold;
     font-style: normal;
-    src: local('FlowExt'),
-        url('/static/CSS/fonts/RobotoCondensed/RobotoCondensed-BoldItalic.ttf?b29bc9d211ae') format('truetype');
+    src: local('RobotoCondensed-Bold'),
+        url('/static/CSS/fonts/RobotoCondensed/RobotoCondensed-Bold.ttf?2912f5b11247') format('truetype');
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+@font-face {
+    font-family: 'RobotoCondensed-Regular';
+    font-weight: bold;
+    font-style: normal;
+    src: local('RobotoCondensed-Regular'),
+        url('/static/CSS/fonts/RobotoCondensed/RobotoCondensed-Regular.ttf?2912f5b11247') format('truetype');
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@font-face {
+    font-family: 'RobotoCondensed-Light';
+    font-weight: bold;
+    font-style: normal;
+    src: local('RobotoCondensed-Light'),
+        url('/static/CSS/fonts/RobotoCondensed/RobotoCondensed-Light.ttf?2912f5b11247') format('truetype');
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 
 .column-h p {
     font-size: 2vw;
@@ -223,7 +246,7 @@
 body {
     /*f8f8f8*/
     background-color: #fff;
-    font-family: "RobotoCondensed-BoldItalic";
+    font-family: "RobotoCondensed-Regular";
     font-style: bolder;
     line-height: 1.3em;
     overflow-x: hidden;
@@ -231,7 +254,7 @@ body {
 }
 
 header {
-    font-family: "FlowExt";
+    font-family: "RobotoCondensed-Bold";
     font-size: smaller;
     font-style: bold;
 }
@@ -248,6 +271,7 @@ background: linear-gradient(270deg, rgba(255,75,0,1) 0%, rgba(169,54,7,1) 100%);
     width: 100%;
     height: 100vh;
 }
+
 
 .pulse {
     display: flex;
@@ -314,7 +338,7 @@ background: linear-gradient(270deg, rgba(255,75,0,1) 0%, rgba(169,54,7,1) 100%);
 .container_board {
     width: 300px;
     height: 200px;
-    background-image: url('/static/images/boards/1.jpg?2e8cc75b31d9');
+    background-image: url('/static/images/boards/1.jpg?2912f5b11247');
     background-size: 300px 200px;
     border-radius: 3%;
     background-color: #ffffff;
@@ -337,7 +361,7 @@ background: linear-gradient(270deg, rgba(255,75,0,1) 0%, rgba(169,54,7,1) 100%);
 
 .container_board_description {
     font-size: 15px;
-    text-align: center;
+    text-align: left;
     padding: 15px;
 
 }
@@ -406,6 +430,21 @@ background: linear-gradient(270deg, rgba(255,75,0,1) 0%, rgba(169,54,7,1) 100%);
 
 .dropdown a:hover {
     background-color: #ddd;
+}
+
+
+.del_list{
+    cursor: pointer;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    opacity: 0.8;
+    left: 94.5%;
+    margin: 0px;
+    top: -15px;
+}
+.del_list:hover {
+    opacity: 1;
 }
 
 .edit_menu > * {

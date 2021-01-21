@@ -25,11 +25,12 @@
                     edit_list_title.classList.remove('show_edit');
                     edit_list_title.setAttribute('readonly', '');
                     edit_list_title.style.cursor = 'pointer';
-                    document.onmousedown = null;
+                    list_titile_update(event.target.value, list_index);  
+                    document.removeEventListener('mousedown', hide_edit_listener, false);
                 }
             }
             event.target.addEventListener('keypress', submit_listener, false);
-            document.addEventListener('click', hide_edit_listener, false)
+            document.addEventListener('mousedown', hide_edit_listener, false)
             if (!openlist.classList.contains('show_edit')) {
                 event.target.select();
                 openlist.classList.add('show_edit');
