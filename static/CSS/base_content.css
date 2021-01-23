@@ -86,6 +86,33 @@ header {
 }
 
 
+.del_board{
+    cursor: pointer;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    opacity: 0.8;
+    left: 90%;
+    margin: 0px;
+    top: 3%;
+}
+.del_board:hover {
+    opacity: 1;
+}
+
+.edit_board{
+    cursor: pointer;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    opacity: 0.8;
+    margin: 0px;
+    bottom: 6%;
+}
+.edit_board:hover {
+    opacity: 1;
+}
+
 
 .area {
     background-color: #fff;
@@ -177,18 +204,28 @@ background: linear-gradient(270deg, rgba(255,75,0,1) 0%, rgba(169,54,7,1) 100%);
     padding: 50px 15px 0px 15px;
     font-size: 30px;
     line-height: 30px;
+    padding-inline: 6%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
 }
 
 .container_board_title {
     padding-top: 20px;
     font-size: 30px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding-inline: 5%;
 }
 
 .container_board_description {
-    font-size: 15px;
     text-align: left;
-    padding: 15px;
-
+    padding: 5%;
+    word-wrap: break-word;
+    white-space: pre-line;
+    text-overflow: clip;
+    overflow: hidden;
+    height: 8.9rem;
 }
 
 .container_board_plus {
@@ -298,7 +335,6 @@ background: linear-gradient(270deg, rgba(255,75,0,1) 0%, rgba(169,54,7,1) 100%);
 }
 
 .modal_icon {
-    height: 50px;
     width: 50px;
 }
 

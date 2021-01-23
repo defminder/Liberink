@@ -14,8 +14,13 @@
             <link rel="stylesheet" href="{% static 'CSS/base_header.css' %}" />
             <link rel="stylesheet" href="{% static 'CSS/base_content.css' %}" />
             {% endcompress %}
-
-
+            {% compress js %}
+            <script type="text/javascript" src = "{% static 'JS/axios.min.js' %}"></script>
+            <script type="text/javascript" src = "{% static 'JS/axios_settings.js' %}"></script>
+            <script type="text/javascript" src = "{% static 'JS/delete_board.js' %}" async></script>
+            <script type="text/javascript" src = "{% static 'JS/edit_board.js' %}" async></script>
+            {% endcompress %}
+            <meta http-equiv="Cache-Control" content="no-cache">
         </head>
     {% endblock %}
     {% block content %}
@@ -25,38 +30,90 @@
                 <div class='container_header_text'>Доска цикловой комиссии</div>
             </div>
             <div class='container_row'>
+                <div id="board_delete_confirm_modal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <img class='modal_icon' src="{% static 'images/icons/board.png' %}" />
+                            <h3 class="modal-title" style="line-height: 1;">Delete board</h3>
+                            <img id="close_delete" src="{% static 'images/icons/close.png' %}" class="close"></img>
+                        </div>
+                        <div class="form-group" style="margin: 1rem;">
+                            <h3 class="modal-title">
+                                Are you sure want<br/>
+                                to <span style='text-decoration: underline; text-decoration-color: #b70114;'>delete</span> this board
+                            </h3>
+                        </div>
+                        <div class="form-group" style=" display: block ruby; align-content: center;">
+                            <div id="board_to_del" class='container_board form-group'></div>
+                        </div>
+                        <div class="form-group">
+                            <div id="cancel_delete" style='margin-right: 10%;' class="btn btn-danger btn-block-m"> No </div>
+                            <div id="confirm_delete" style='margin-left: 10%;' class="btn btn-success btn-block-m"> Yes </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div id="board_edit_modal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <img class='modal_icon' src="{% static 'images/icons/board.png' %}"/> 
+                            <h3 class="modal-title">Edit board</h3>
+                            <img src="{% static 'images/icons/close.png' %}" class="close"></img>
+                        </div>
+                        <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="title_input">Title</label>
+                                    <input name='title' type="text" class="form-control" id="title_input" required maxlength="50">
+                                    <div class="invalid-feedback">
+                                        Title is required
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="description_textarea">Description</label>
+                                    <textarea name='description' class="form-control" id="description_textarea" spellcheck="false" rows="3"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <div style='margin:0px;' class="btn btn-outline-primary btn-block"> Submit </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
                 {% for board in boards_list %}
-                <a href='/board/{{board.id}}' style= 'color: transparent;'>
+                <a href='/board/{{board.id}}' style= 'color: transparent; position: relative;'>
                     <div class='container_board'>
+                        <img src="/static/images/icons/delete.png" 
+                            onclick="delete_board(event)" 
+                            style="display: block;" 
+                            class="del_board">
                         {% if board.description != "" %}
-                        <div class='container_board_title'>
-                            {{ board.title }}
-                        </div>
-                        <div class='container_board_description'>
-                            {{ board.description|linebreaksbr|truncatewords:10}}
-                        </div>
+                            <div class='container_board_title'>
+                                {{ board.title }}
+                            </div>
+                            <div class='container_board_description'>{{ board.description|linebreaksbr }}</div>
                         {% elif board.description == "" %}
-                        {% if board.title|wordcount == 1 %}
-                        <div class='container_board_only_title' style="word-break: break-all;">
-                            {{ board.title|linebreaksbr }}
-                        </div>
-                        {% else %}
-                        <div class='container_board_only_title'>
-                            {{ board.title|linebreaksbr }}
-                        </div>
+                            {% if board.title|wordcount == 1 %}
+                                <div class='container_board_only_title' style="word-break: break-all;">{{ board.title|linebreaksbr }}</div>
+                            {% else %}
+                                <div class='container_board_only_title'>{{ board.title|linebreaksbr }}</div>
+                            {% endif %}
                         {% endif %}
-                        {% endif %}
+                        <img src="/static/images/icons/edit_board.png" 
+                        onclick="edit_board(event)" 
+                        style="display: block;" 
+                        class="edit_board">
                     </div>
                 </a>
                 {% endfor %}
                 <button id='board_add' class=' btn board_btn'>
                     <div class='container_board_plus'>
-                        <img class='plus_board_icon' src="{% static 'images/icons/add.png' %}" />
+                        <img class='plus_board_icon' src="{% static 'images/icons/add.png' %}"/>
                 </button>
                 <div id="board_add_modal" class="modal">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h3 class="modal-title"><img class='modal_icon  ' src="{% static 'images/icons/board.png' %}" /> Create board</h3>
+                            <img class='modal_icon' src="{% static 'images/icons/board.png' %}"/>
+                            <h3 class="modal-title">Create board</h3>
+                            <img id="cancel_create" src="{% static 'images/icons/close.png' %}" class="close"></img>
                         </div>
                         <div class="modal-body">
                             <form method="POST" class="form_create_board needs-validation" autocomplete='off' novalidate>
@@ -82,9 +139,13 @@
             </div>
         </div>
         {% compress js %}
-            <script type="text/javascript" src ="{% static 'JS/dropdown.js' %}" ></script>
-            <script type="text/javascript" src ="{% static 'JS/open_modal_form.js' %}" ></script>
-            <script type="text/javascript" src ="{% static 'JS/form_validation.js' %}" ></script>
+            <script type="text/javascript"> 
+                var api_key = "{{ api_key }}"; 
+                var boards_id = "{{ boards }}";
+            </script>
+            <script type="text/javascript" src = "{% static 'JS/dropdown.js' %}" ></script>
+            <script type="text/javascript" src = "{% static 'JS/open_modal_form.js' %}"></script>
+            <script type="text/javascript" src = "{% static 'JS/form_validation.js' %}"></script>
         {% endcompress %}
     {% endblock %}
 </body>

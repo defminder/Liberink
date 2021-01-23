@@ -4,21 +4,17 @@ import traceback
 import json
 
 from django.shortcuts import render, redirect
-from django.http.response import JsonResponse
-from rest_framework.parsers import JSONParser 
-from rest_framework import status
-from rest_framework.decorators import api_view
-from django.contrib.auth import get_user_model
 
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
 from django.views.generic import ListView
-
-from boards.forms import CreateBoard
-from boards.models import Board
+from rest_framework.decorators import api_view
 
 from boards.serializers import BoardSerializer
+from boards.forms import CreateBoard
+from boards.models import Board
 
 
 @login_required(login_url='/login')
@@ -53,7 +49,14 @@ def profile_view(request, username):
 				return redirect(f'/board/{current_board.id}')
 			else:
 				boards_list = Board.objects.filter(owner_id= request.user.api_key).order_by('created')
-				return render(request, 'boards/boards_menu.html', {'boards_list' : boards_list})
+				return render(
+					request, 
+					'boards/boards_menu.html', 
+					{
+						'boards_list': boards_list, 
+						'api_key': request.user.api_key,
+						'boards': ','.join([str(board.id) for board in boards_list])
+					})
 		else:
 			return render(request, 'boards/not_found.html', {})
 	except:

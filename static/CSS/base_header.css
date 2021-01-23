@@ -88,6 +88,21 @@
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
+.btn-danger {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-success {
+  color: #fff;
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-block-m{
+  width: 30%;
+}
 .btn-outline-primary {
   color: #fff;
   background-color:#1b97f3;
@@ -162,7 +177,7 @@
 	margin: 0px 0px 0px 10px;
 }
 
-.logo_btn:{
+.logo_btn{
   transition:none;
   padding: 0px;
   margin: 0px;

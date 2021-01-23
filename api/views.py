@@ -1,4 +1,3 @@
-from rest_framework.parsers import JSONParser 
 from django.http.response import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework import status
@@ -6,12 +5,62 @@ import traceback
 from boards.models import Board
 from boards.serializers import BoardSerializer
 
+
 def is_int(x):
 	try:
 		int(x)
 		return True
 	except TypeError:
 		return False
+
+
+@api_view(['PUT'])
+def update_board(request):
+	try:
+		required_args = ['key', 'board_id', 'title', 'description']
+		if all(arg in required_args for arg in request.data):
+			board = Board.objects.get(id = request.data['board_id'])
+			if str(board.owner.api_key) == str(request.data['key']):
+				try:
+					board.title = request.data['title']
+					board.description = request.data['description']
+					board.save()
+					return JsonResponse({'message': 'Board successfully updated.'}, status=status.HTTP_200_OK)
+				except:
+					return JsonResponse({'message': 'Board not updated. Title or description invalid.'}, status=status.HTTP_400_BAD_REQUEST)
+			else:
+				return JsonResponse({'message': 'API key for this board invalid.'}, status=status.HTTP_403_FORBIDDEN)
+		else:
+			return JsonResponse({'message': 'Not enough arguments.'}, status=status.HTTP_400_BAD_REQUEST)
+	except Board.DoesNotExist: 
+		return JsonResponse({'message': 'Board id is invalid. Board not found'}, status=status.HTTP_404_NOT_FOUND)
+	except:
+		print(traceback.format_exc())
+		return JsonResponse({'message': 'Server API error.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(['DELETE'])
+def delete_board(request):
+	try:
+		required_args = ['key', 'board_id']
+		if all(arg in required_args for arg in request.data):
+			board = Board.objects.get(id = request.data['board_id'])
+			if str(board.owner.api_key) == str(request.data['key']):
+				try:
+					board.delete()
+					return JsonResponse({'message': 'Board successfully deleted.'}, status=status.HTTP_200_OK)
+				except:
+					return JsonResponse({'message': 'Server API error.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+			else:
+				return JsonResponse({'message': 'API key for this board invalid.'}, status=status.HTTP_403_FORBIDDEN)
+		else:
+			return JsonResponse({'message': 'Not enough arguments.'}, status=status.HTTP_400_BAD_REQUEST)
+	except Board.DoesNotExist: 
+		return JsonResponse({'message': 'Board not found.'}, status=status.HTTP_404_NOT_FOUND)
+	except:
+		print(traceback.format_exc())
+		return JsonResponse({'message': 'Server API error.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 @api_view(['PUT'])
 def update_list_title(request):
