@@ -14,6 +14,10 @@
             <link rel="stylesheet" href="{% static 'CSS/base_header.css' %}" />
             <link rel="stylesheet" href="{% static 'CSS/base_content.css' %}" />
             {% endcompress %}
+            <script type="text/javascript"> 
+                var api_key = "{{ api_key }}"; 
+                var boards_id = "{{ boards }}";
+            </script>
             {% compress js %}
             <script type="text/javascript" src = "{% static 'JS/axios.min.js' %}"></script>
             <script type="text/javascript" src = "{% static 'JS/axios_settings.js' %}"></script>
@@ -40,7 +44,7 @@
                         <div class="form-group" style="margin: 1rem;">
                             <h3 class="modal-title">
                                 Are you sure want<br/>
-                                to <span style='text-decoration: underline; text-decoration-color: #b70114;'>delete</span> this board
+                                to <span style='text-decoration: underline; text-decoration-color: #b70114;'>DELETE</span> this board?
                             </h3>
                         </div>
                         <div class="form-group" style=" display: block ruby; align-content: center;">
@@ -139,10 +143,6 @@
             </div>
         </div>
         {% compress js %}
-            <script type="text/javascript"> 
-                var api_key = "{{ api_key }}"; 
-                var boards_id = "{{ boards }}";
-            </script>
             <script type="text/javascript" src = "{% static 'JS/dropdown.js' %}" ></script>
             <script type="text/javascript" src = "{% static 'JS/open_modal_form.js' %}"></script>
             <script type="text/javascript" src = "{% static 'JS/form_validation.js' %}"></script>
