@@ -14,8 +14,8 @@
             <link rel="stylesheet" href="{% static 'CSS/base_header.css' %}" />
             <link rel="stylesheet" href="{% static 'CSS/base_content.css' %}" />
             {% endcompress %}
-            <script type="text/javascript"> 
-                var api_key = "{{ api_key }}"; 
+            <script type="text/javascript">
+                var api_key = "{{ api_key }}";
                 var boards_id = "{{ boards }}";
             </script>
             {% compress js %}
@@ -31,7 +31,7 @@
         <div class='container'>
             <div class='container_header'>
                 <img class='container_header_icon' src="{% static 'images/icons/boards.png '%}" />
-                <div class='container_header_text'>Доска цикловой комиссии</div>
+                <div class='container_header_text'>Desks</div>
             </div>
             <div class='container_row'>
                 <div id="board_delete_confirm_modal" class="modal">

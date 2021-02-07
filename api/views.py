@@ -2,6 +2,7 @@ from django.http.response import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework import status
 import traceback
+
 from boards.models import Board
 from boards.serializers import BoardSerializer
 
@@ -18,7 +19,7 @@ def is_int(x):
 def update_board(request):
 	try:
 		required_args = ['key', 'board_id', 'title', 'description']
-		if all(arg in required_args for arg in request.data):
+		if len(request.data) and all(arg in required_args for arg in request.data):
 			board = Board.objects.get(id = request.data['board_id'])
 			if str(board.owner.api_key) == str(request.data['key']):
 				try:
@@ -32,7 +33,7 @@ def update_board(request):
 				return JsonResponse({'message': 'API key for this board invalid.'}, status=status.HTTP_403_FORBIDDEN)
 		else:
 			return JsonResponse({'message': 'Not enough arguments.'}, status=status.HTTP_400_BAD_REQUEST)
-	except Board.DoesNotExist: 
+	except Board.DoesNotExist:
 		return JsonResponse({'message': 'Board id is invalid. Board not found'}, status=status.HTTP_404_NOT_FOUND)
 	except:
 		print(traceback.format_exc())
@@ -43,7 +44,7 @@ def update_board(request):
 def delete_board(request):
 	try:
 		required_args = ['key', 'board_id']
-		if all(arg in required_args for arg in request.data):
+		if len(request.data) and all(arg in required_args for arg in request.data):
 			board = Board.objects.get(id = request.data['board_id'])
 			if str(board.owner.api_key) == str(request.data['key']):
 				try:
@@ -55,7 +56,7 @@ def delete_board(request):
 				return JsonResponse({'message': 'API key for this board invalid.'}, status=status.HTTP_403_FORBIDDEN)
 		else:
 			return JsonResponse({'message': 'Not enough arguments.'}, status=status.HTTP_400_BAD_REQUEST)
-	except Board.DoesNotExist: 
+	except Board.DoesNotExist:
 		return JsonResponse({'message': 'Board not found.'}, status=status.HTTP_404_NOT_FOUND)
 	except:
 		print(traceback.format_exc())
@@ -66,13 +67,13 @@ def delete_board(request):
 def update_list_title(request):
 	try:
 		required_args = ['key', 'board_id', 'list_id', 'title']
-		if all(arg in required_args for arg in request.data):
+		if len(request.data) and all(arg in required_args for arg in request.data):
 			board = Board.objects.get(id = request.data['board_id'])
 			if str(board.owner.api_key) == str(request.data['key']):
 				board_data = board.content
 				if (is_int(request.data['list_id'])) and (0 <= request.data['list_id'] < len(board_data['lists'])):
 					board_data['lists'][request.data['list_id']]['title'] = request.data['title']
-					board_serializer = BoardSerializer(board, data= board_data) 
+					board_serializer = BoardSerializer(board, data= board_data)
 					if board_serializer.is_valid():
 						board_serializer.save()
 						return JsonResponse({'message': 'List title successfully updated'}, status=status.HTTP_200_OK)
@@ -84,7 +85,7 @@ def update_list_title(request):
 				return JsonResponse({'message': 'API key for this board invalid.'}, status=status.HTTP_403_FORBIDDEN)
 		else:
 			return JsonResponse({'message': 'Not enough arguments.'}, status=status.HTTP_400_BAD_REQUEST)
-	except Board.DoesNotExist: 
+	except Board.DoesNotExist:
 		return JsonResponse({'message': 'Board not found'}, status=status.HTTP_404_NOT_FOUND)
 	except:
 		print(traceback.format_exc())
@@ -95,7 +96,7 @@ def update_list_title(request):
 def create_list(request):
 	try:
 		required_args = ['key', 'board_id']
-		if all(arg in required_args for arg in request.data):
+		if len(request.data) and all(arg in required_args for arg in request.data):
 			board = Board.objects.get(id = request.data['board_id'])
 			if str(board.owner.api_key) == str(request.data['key']):
 				board_data = board.content
@@ -121,13 +122,13 @@ def create_list(request):
 def delete_list(request):
 	try:
 		required_args = ['key', 'board_id', 'list_id']
-		if all(arg in required_args for arg in request.data):
+		if len(request.data) and all(arg in required_args for arg in request.data):
 			board = Board.objects.get(id = request.data['board_id'])
 			if str(board.owner.api_key) == str(request.data['key']):
 				board_data = board.content
 				if (is_int(request.data['list_id'])) and (0 <= request.data['list_id'] < len(board_data['lists'])):
 					board_data['lists'].remove(board_data['lists'][request.data['list_id']])
-					board_serializer = BoardSerializer(board, data= board_data) 
+					board_serializer = BoardSerializer(board, data= board_data)
 					if board_serializer.is_valid():
 						board_serializer.save()
 						return JsonResponse({'message': 'List successfully deleted.'}, status=status.HTTP_200_OK)
@@ -139,7 +140,7 @@ def delete_list(request):
 				return JsonResponse({'message': 'API key for this board invalid.'}, status=status.HTTP_403_FORBIDDEN)
 		else:
 			return JsonResponse({'message': 'Not enough arguments.'}, status=status.HTTP_400_BAD_REQUEST)
-	except Board.DoesNotExist: 
+	except Board.DoesNotExist:
 		return JsonResponse({'message': 'Board not found'}, status=status.HTTP_404_NOT_FOUND)
 	except:
 		print(traceback.format_exc())
@@ -150,7 +151,7 @@ def delete_list(request):
 def create_sticker(request):
 	try:
 		required_args = ['key', 'board_id', 'list_id']
-		if all(arg in required_args for arg in request.data):
+		if len(request.data) and all(arg in required_args for arg in request.data):
 			board = Board.objects.get(id = request.data['board_id'])
 			if str(board.owner.api_key) == str(request.data['key']):
 				board_data = board.content
@@ -160,7 +161,7 @@ def create_sticker(request):
 					else:
 						board_data['lists'][request.data['list_id']]['stickers'] = [{'text' : ''}]
 
-					board_serializer = BoardSerializer(board, data= board_data) 
+					board_serializer = BoardSerializer(board, data= board_data)
 					if board_serializer.is_valid():
 						board_serializer.save()
 						return JsonResponse({'message': 'Stiker successfully added'}, status=status.HTTP_200_OK)
@@ -172,7 +173,7 @@ def create_sticker(request):
 				return JsonResponse({'message': 'API key for this board invalid.'}, status=status.HTTP_403_FORBIDDEN)
 		else:
 			return JsonResponse({'message': 'Not enough arguments.'}, status=status.HTTP_400_BAD_REQUEST)
-	except Board.DoesNotExist: 
+	except Board.DoesNotExist:
 		return JsonResponse({'message': 'Board not found'}, status=status.HTTP_404_NOT_FOUND)
 	except:
 		print(traceback.format_exc())
@@ -183,8 +184,8 @@ def create_sticker(request):
 def update_sticker_text(request):
 	try:
 		required_args = ['key', 'board_id', 'list_id', 'sticker_id','text']
-		if all(arg in required_args for arg in request.data):
-			board = Board.objects.get(id = request.data['board_id']) 
+		if len(request.data) and all(arg in required_args for arg in request.data):
+			board = Board.objects.get(id = request.data['board_id'])
 			if str(board.owner.api_key) == str(request.data['key']):
 				board_data = board.content
 				if (is_int(request.data['list_id'])) and (0 <= request.data['list_id'] < len(board_data['lists'])):
@@ -192,7 +193,7 @@ def update_sticker_text(request):
 						board_data['lists'][request.data['list_id']]['stickers'] = []
 					if (is_int(request.data['sticker_id'])) and (0 <= request.data['sticker_id'] < len(board_data['lists'][request.data['list_id']]['stickers'])):
 						board_data['lists'][request.data['list_id']]['stickers'][request.data['sticker_id']]['text'] = request.data['text']
-						board_serializer = BoardSerializer(board, data= board_data) 
+						board_serializer = BoardSerializer(board, data= board_data)
 						if board_serializer.is_valid():
 							board_serializer.save()
 							return JsonResponse({'message': 'Stickers successfully updated'}, status=status.HTTP_200_OK)
@@ -206,7 +207,7 @@ def update_sticker_text(request):
 				return JsonResponse({'message': 'API key for this board invalid.'}, status=status.HTTP_403_FORBIDDEN)
 		else:
 			return JsonResponse({'message': 'Not enough arguments.'}, status=status.HTTP_400_BAD_REQUEST)
-	except Board.DoesNotExist: 
+	except Board.DoesNotExist:
 		return JsonResponse({'message': 'Board not found.'}, status=status.HTTP_404_NOT_FOUND)
 	except:
 		print(traceback.format_exc())
@@ -217,7 +218,7 @@ def update_sticker_text(request):
 def delete_sticker(request):
 	try:
 		required_args = ['key', 'board_id', 'list_id', 'sticker_id']
-		if all(arg in required_args for arg in request.data):
+		if len(request.data) and all(arg in required_args for arg in request.data):
 			board = Board.objects.get(id = request.data['board_id'])
 			if str(board.owner.api_key) == str(request.data['key']):
 				board_data = board.content
@@ -228,7 +229,7 @@ def delete_sticker(request):
 						board_data['lists'][request.data['list_id']]['stickers'].remove(
 							board_data['lists'][request.data['list_id']]['stickers'][request.data['sticker_id']]
 						)
-						board_serializer = BoardSerializer(board, data= board_data) 
+						board_serializer = BoardSerializer(board, data= board_data)
 						if board_serializer.is_valid():
 							board_serializer.save()
 							return JsonResponse({'message': 'Sticker successfully deleted'}, status=status.HTTP_200_OK)
@@ -242,7 +243,7 @@ def delete_sticker(request):
 				return JsonResponse({'message': 'API key for this board invalid.'}, status=status.HTTP_403_FORBIDDEN)
 		else:
 			return JsonResponse({'message': 'Not enough arguments.'}, status=status.HTTP_400_BAD_REQUEST)
-	except Board.DoesNotExist: 
+	except Board.DoesNotExist:
 		return JsonResponse({'message': 'Board not found'}, status=status.HTTP_404_NOT_FOUND)
 	except:
 		print(traceback.format_exc())
@@ -254,10 +255,10 @@ def delete_sticker(request):
 def update_sticker_postition(request):
 	try:
 		required_args = ['key', 'board_id', 'old_list_id', 'old_sticker_id', 'new_list_id', 'new_sticker_id']
-		if all(arg in required_args for arg in request.data):
-			board = Board.objects.get(id = request.data['board_id']) 
+		if len(request.data) and all(arg in required_args for arg in request.data):
+			board = Board.objects.get(id = request.data['board_id'])
 			if str(board.owner.api_key) == str(request.data['key']):
-				board_data = board.content	
+				board_data = board.content
 				if (is_int(request.data['old_list_id'])) and (0 <= request.data['old_list_id'] < len(board_data['lists'])):
 					if (is_int(request.data['new_list_id'])) and (0 <= request.data['new_list_id'] < len(board_data['lists'])):
 						if (is_int(request.data['old_sticker_id'])) and (0 <= request.data['old_sticker_id'] < len(board_data['lists'][request.data['old_list_id']]['stickers'])):
@@ -283,10 +284,8 @@ def update_sticker_postition(request):
 				return JsonResponse({'message': 'API key for this board invalid.'}, status=status.HTTP_403_FORBIDDEN)
 		else:
 			return JsonResponse({'message': 'Not enough arguments.'}, status=status.HTTP_400_BAD_REQUEST)
-	except Board.DoesNotExist: 
+	except Board.DoesNotExist:
 		return JsonResponse({'message': 'Board not found.'}, status=status.HTTP_404_NOT_FOUND)
 	except:
 		print(traceback.format_exc())
 		return JsonResponse({'message': 'Server API error.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-  	

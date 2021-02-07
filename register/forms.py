@@ -17,13 +17,12 @@ class RegistredUsers(UserCreationForm):
 	def clean_password(self):
 		entered_password = self.cleaned_data.get('password1')
 		MIN_LENGHT = 8
-		print(len(entered_password))
 		if not len(entered_password):
 			raise forms.ValidationError('Password is required')
 		elif len(entered_password) < MIN_LENGHT:
 			raise forms.ValidationError('Password must be more than 8 characters')
 		return self.cleaned_data.get('password1')
-	
+
 	class Meta:
 		model = User
 		fields = ('first_name', 'last_name', 'username', 'email', 'password1')
