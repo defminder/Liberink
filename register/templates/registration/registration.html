@@ -4,14 +4,34 @@
 <head>
     {% load static %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="img/png" href="{% static 'images/favicons/main_icon.ico' %}" />
+    <link rel="stylesheet" href="{% static 'CSS/pre_loader.css' %}" />
     <title>Libering</title>
     <link href="https://getbootstrap.com/docs/4.5/examples/floating-labels/floating-labels.css" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="{% static 'CSS/login&register.css' %}" />
+    <link rel="shortcut icon" type="img/png" href="{% static 'images/favicons/main_icon.ico' %}" />
 </head>
-
+<div class='pre_loader_wrapper'>
+    <div class="pre_loader">
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+      </div>
+</div>
 <body>
     <div class="container">
         <div class="row justify-content-center">
@@ -22,12 +42,12 @@
                         <h4 class="card-title mt-2">Sign up</h4>
                     </header>
                     <article class="card-body">
-                        <form   method="POST" 
-                                class="form-signin needs-validation" 
+                        <form   method="POST"
+                                class="form-signin needs-validation"
                                 novalidate>
 
                             {% csrf_token %}
-                            
+
                             <div class="text-center mb-4">
                                 <a href='/'><img class="mb-4" src="/static/images/favicons/main_icon.ico" alt="" width="72" height="72"></a>
                             </div>
@@ -79,7 +99,7 @@
                                     Email address is required
                                 </div>
                             </div>
-                            
+
                             <div class="form-label-group mb-4">
                                 <input type="password" id="inputPassword" name="password1" class="form-control" placeholder="Password" required>
                                 <label for="inputPassword">Password</label>
@@ -113,7 +133,6 @@
         </div>
     </div>
     <div class="area">
-        
         <ul class="circles">
             <li></li>
             <li></li>
@@ -127,6 +146,7 @@
             <li></li>
         </ul>
     </div>
+    <script type="text/javascript" src="{% static 'JS/pre_loader.js' %}"></script>
     <script>
       (function () {
           'use strict'

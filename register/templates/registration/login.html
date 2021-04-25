@@ -4,12 +4,34 @@
 <head>
     {% load static %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'CSS/pre_loader.css' %}" />
     <link rel="shortcut icon" type="img/png" href="{% static 'images/favicons/main_icon.ico' %}" />
     <title>Libering</title>
     <link href="https://getbootstrap.com/docs/4.5/examples/floating-labels/floating-labels.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/4.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'CSS/login&register.css' %}" />
 </head>
+
+<div class='pre_loader_wrapper'>
+    <div class="pre_loader">
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+      </div>
+</div>
 
 <body>
     <div class="container">
@@ -84,6 +106,7 @@
             <li></li>
         </ul>
     </div>
+    <script type="text/javascript" src="{% static 'JS/pre_loader.js' %}"></script>
     <script>
     (function() {
         'use strict'

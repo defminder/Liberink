@@ -8,6 +8,7 @@
             {% load static %}
             {% load compress %}
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="{% static 'CSS/pre_loader.css' %}" />
             <link rel="shortcut icon" type="img/png" href="{% static 'images/favicons/main_icon.ico' %}" />
             <title>Liberink</title>
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
@@ -144,6 +145,7 @@
             </div>
         </div>
         {% compress js %}
+            <script type="text/javascript" src="{% static 'JS/pre_loader.js' %}"></script>
             <script type="text/javascript" src = "{% static 'JS/dropdown.js' %}" ></script>
             <script type="text/javascript" src = "{% static 'JS/open_modal_form.js' %}"></script>
             <script type="text/javascript" src = "{% static 'JS/form_validation.js' %}"></script>

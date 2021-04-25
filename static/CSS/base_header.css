@@ -25,7 +25,6 @@
     padding: 5px 10px;
     margin: 0 auto;
   }
-  
 }
 @media screen and (min-width: 760px) {
   .page-header{
@@ -40,7 +39,6 @@
     padding: 5px 30px;
     margin: 0 auto;
   }
-  
 }
 @media screen and (max-width: 360px){
   .header_content{

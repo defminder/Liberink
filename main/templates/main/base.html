@@ -9,13 +9,14 @@
         {% load static %}
         {% load compress %}
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="shortcut icon" type="img/png" href="{% static 'images/favicons/main_icon.ico' %}" />
         <title>Liberink</title>
+        <link rel="stylesheet" href="{% static 'CSS/pre_loader.css' %}" />
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
         {% compress css %}
         <link rel="stylesheet" href="{% static 'CSS/base_header.css' %}" />
         <link rel="stylesheet" href="{% static 'CSS/base_content.css' %}" />
         {% endcompress %}
+        <link rel="shortcut icon" type="img/png" href="{% static 'images/favicons/main_icon.ico' %}" />
     </head>
     {% endblock %}
     {% block content %}
@@ -26,6 +27,7 @@
         </div>
         <img class="column-img-first" src="{% static 'images/home/23501.png '%}" />
     </div>
+    <script type="text/javascript" src="{% static 'JS/pre_loader.js' %}"></script>
     {% endblock %}
 </body>
 
