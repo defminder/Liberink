@@ -1,9 +1,12 @@
 @font-face {
-    font-family: 'FlowExt';
+    font-family: 'RobotoCondensed-Light';
     font-weight: bold;
     font-style: normal;
-    src: local('FlowExt'),
-       url('fonts/FlowExt.otf') format('truetype');
+    src: local('RobotoCondensed-Light'),
+        url('fonts/RobotoCondensed/RobotoCondensed-Light.ttf') format('truetype');
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .btn{
@@ -32,11 +35,21 @@
     padding-right: 0px;
     padding-left: 0px;
 }
-.pd-l{
-    padding-right: 5px;
+@media screen and (min-width: 760px){
+    .pd-l{
+        padding-right: 5px;
+    }
+    .pd-r{
+        padding-left: 5px;
+    }
 }
-.pd-r{
-    padding-left: 5px;
+@media screen and (max-width: 760px){
+    .pd-l{
+        padding-right: 0px;
+    }
+    .pd-r{
+        padding-left: 0px;
+    }
 }
 
 .form-label-group label{
@@ -60,7 +73,7 @@ body{
     background: -webkit-linear-gradient(to left, #0e67b8, #1b97f3);  
     width: 100%;
     height:100vh;
-    font-family: "FlowExt";
+    font-family: "RobotoCondensed-Light";
     font-size: normal;  
 }
 

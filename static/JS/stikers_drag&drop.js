@@ -2,7 +2,6 @@ function on_stiker_click(e) {
     var stiker = e.target.parentNode;
     if (e.type == 'mousedown') {
         if (e.which == 1 && e.target.classList.contains('sticker')) {
-            
             var page_down_scroll = 0;
             var page_up_scroll = 0
             var targetMoved = false;
@@ -69,7 +68,6 @@ function on_stiker_click(e) {
                                         drop_postition += 1;
                                     }
                                 }
-                                
                             };
                             new_sticker_id = drop_postition;
                             drop_to = drop_postition;
@@ -87,7 +85,7 @@ function on_stiker_click(e) {
                             add_sticker_button.before(createStikerSubstrate(stiker));
                         }
                         parentList = list;
-                    } 
+                    }
                     else {
                         if (wrappers[i].getElementsByClassName('stiker_substrate').length > 0) {
                             if (list != parentList) {
@@ -182,12 +180,11 @@ function on_stiker_click(e) {
 
         var targetMoved = false;
         var parentList = null;
-        var coords = getCoords(stiker);
+        var coords = getCoordsMobile(stiker);
         var shiftX = e.touches[0].clientX - coords.left;
         var shiftY = e.touches[0].clientY - coords.top;
-
         stiker.style.zIndex = 1000;
-
+        document.getElementsByTagName("body")[0].style.overflow = 'hidden';
         function createStikerSubstrate(elem) {
             var div = document.createElement('div');
             div.style.height = elem.style.height;
@@ -196,6 +193,25 @@ function on_stiker_click(e) {
         }
 
         function moveAt(e) {
+            if (e.changedTouches[0].clientY >= document.documentElement.clientHeight * 0.90){
+                if (page_down_scroll == 0) {
+                    page_down_scroll = setInterval("window.scrollBy({ top: 3 });", 1);
+                }
+            }
+            else{
+                clearInterval(page_down_scroll);
+                page_down_scroll = 0 ;
+            }
+            if (e.changedTouches[0].clientY < document.documentElement.clientHeight * 0.10){
+                if (page_up_scroll == 0) {
+                    page_up_scroll = setInterval("window.scrollBy({ top: -3 });", 1);
+                }
+            }
+            else{
+                clearInterval(page_up_scroll);
+                page_up_scroll = 0;
+            }
+            var drop_postition = 0;
             stiker.style.position = 'fixed';
             document.body.appendChild(stiker);
             stiker.style.cursor = 'grabbing';
@@ -204,14 +220,43 @@ function on_stiker_click(e) {
             var wrappers = document.getElementsByClassName("wrapper");
             for (let i = 0; i < wrappers.length; i++) {
                 var wrapper = wrappers[i].getBoundingClientRect();
+                var list = wrappers[i].getElementsByClassName('list')[0];
                 if (e.touches[0].clientX > wrapper.x && e.touches[0].clientY > wrapper.y && e.touches[0].clientX < wrapper.right && e.touches[0].clientY < wrapper.bottom) {
-                    if (wrappers[i].getElementsByClassName('stiker_substrate').length == 0) {
-                        var list = wrappers[i].getElementsByClassName('list')[0];
-                        parentList = list;
-                        list_buttons = list.getElementsByTagName('button');
-                        list.insertBefore(createStikerSubstrate(stiker), list_buttons[list_buttons.length - 1]);
+                    new_list_id = [].indexOf.call(wrappers[i].parentNode.children, wrappers[i]);
+                    if (list.getElementsByClassName('stiker_substrate').length > 0) list.getElementsByClassName('stiker_substrate')[0].remove();
+                    list_stickers = list.getElementsByClassName('sticker_wrapper');
+                    if (list_stickers.length > 0) {
+                        for (let i = 0; i < list_stickers.length; i++) {
+                            coordinates = list_stickers[i].getBoundingClientRect();
+                            if (((document.documentElement.scrollHeight - document.documentElement.scrollTop) % 160) - 116 !== 0){
+                                if (e.touches[0].clientY > coordinates.y + coordinates.height) {
+                                    drop_postition += 1;
+                                }
+                            }
+                            else{
+                                if (e.touches[0].clientY > coordinates.y) {
+                                    drop_postition += 1;
+                                }
+                            }
+                        };
+                        new_sticker_id = drop_postition;
+                        drop_to = drop_postition;
+                        if (drop_postition > 0){
+                            list.children[drop_postition].after(createStikerSubstrate(stiker));
+                        }
+                        else {
+                            list.children[1].before(createStikerSubstrate(stiker));
+                        }
                     }
-                } else {
+                    else{
+                        new_sticker_id = 0;
+                        drop_to = 0;
+                        add_sticker_button = list.getElementsByTagName('button')[0];
+                        add_sticker_button.before(createStikerSubstrate(stiker));
+                    }
+                    parentList = list;
+                }
+                else {
                     if (wrappers[i].getElementsByClassName('stiker_substrate').length > 0) {
                         if (list != parentList) {
                             var list = wrappers[i].getElementsByClassName('list')[0]
@@ -223,6 +268,9 @@ function on_stiker_click(e) {
             }
         }
         document.ontouchend = function stiker_drop(e) {
+            clearInterval(page_down_scroll);
+            clearInterval(page_up_scroll);
+            document.getElementsByTagName("body")[0].style.overflow = 'scroll';
             document.ontouchmove = null;
             document.ontouchend = null;
             stiker.onmouseup = null;
@@ -266,10 +314,18 @@ document.ondragstart = function() {
     return false;
 };
 
+function getCoordsMobile(elem) { // кроме IE8-
+    var box = elem.getBoundingClientRect();
+    return {
+        top: box.top,
+        left: box.left
+    };
+}
+
 function getCoords(elem) { // кроме IE8-
     var box = elem.getBoundingClientRect();
     return {
-        top: box.top + pageYOffset, 
+        top: box.top + pageYOffset,
         left: box.left + pageXOffset
     };
 }

@@ -8,7 +8,7 @@
 
 - Kanban is a workflow management method for defining, managing and improving services that deliver knowledge work. It aims to help you visualize your work, maximize efficiency, and improve continuously.
 
-In this pet project a try yourself if new technology - JavaScript animations. For this aim i decided build kanban boards website. 
+In this pet project a try yourself if new technology - JavaScript animations. For this aim i decided build kanban boards website.
 During development was maked pretty drag and drop animation for stickers in the fields of board. 
 By the way in development of future to save user act's a have learned how to make async API request right in frontend, in JS.
 
@@ -19,4 +19,4 @@ By the way in development of future to save user act's a have learned how to mak
 - JavaScript
 - PostgreSQL
 
- 
+

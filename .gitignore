@@ -1,3 +1,7 @@
 *.pyc
 liberink/.env
 */__pycache__/
+Procfile
+runtime.txt
+CHACHE/css*
+CHACHE/js*

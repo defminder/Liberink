@@ -7,6 +7,7 @@
         <head>
             {% load static %}
             {% load compress %}
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <link rel="shortcut icon" type="img/png" href="{% static 'images/favicons/main_icon.ico' %}" />
             <title>Liberink</title>
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
@@ -74,7 +75,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="description_textarea">Description</label>
-                                    <textarea name='description' class="form-control" id="description_textarea" spellcheck="false" rows="3"></textarea>
+                                    <textarea name='description' class="form-control" style="height: 17rem;"id="description_textarea" spellcheck="false" rows="3"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <div style='margin:0px;' class="btn btn-outline-primary btn-block"> Submit </div>

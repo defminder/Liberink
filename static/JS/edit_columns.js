@@ -2,7 +2,9 @@ function edit_columns(event){
 	if (!(event.target.classList.contains('show') || event.target.parentNode.classList.contains('show'))){
 		dropdown(event);
 		event.target.style.display = 'none';
-		document.getElementsByClassName('page-header')[0].style.backgroundColor = 'rgba(0, 0, 0, 0.4)';
+		var page_header = document.getElementsByClassName('page-header')[0]
+		page_header.style.backgroundColor = 'rgba(0, 0, 0, 0.4)';
+		page_header.style.zIndex = 1001;
 		event.target.parentNode.style.zIndex = 100;
 		edit_modal = document.getElementById('edit_columns');
 		edit_modal.style.display = 'block';
@@ -13,7 +15,9 @@ function edit_columns(event){
 	}
 	else{
 		dropdown(event);
-		document.getElementsByClassName('page-header')[0].style.backgroundColor = '#fff';
+		var page_header = document.getElementsByClassName('page-header')[0]
+		page_header.style.backgroundColor = '#fff';
+		page_header.style.zIndex = 100;
 		var settings_button = document.getElementsByClassName('header-column')[1].children[0].children[3];
 		settings_button.style.display = 'block';
 		edit_modal = document.getElementById('edit_columns');

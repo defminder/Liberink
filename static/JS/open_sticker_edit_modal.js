@@ -15,8 +15,10 @@ function edit_sticker(sticker) {
     edit_block.style.left = sticker.getBoundingClientRect().left + 'px';
     edit_area.style.zIndex = 1001;
     edit_area.style.cursor = 'text';
+    edit_area.style.height = sticker.getBoundingClientRect().height + 'px';
+    edit_area.style.width =  sticker.getBoundingClientRect().width + 'px';
     edit_area.select();
-    
+
     function up_sticker(){
         document.body.style.overflowY = 'scroll';
         var targetPosition = {
